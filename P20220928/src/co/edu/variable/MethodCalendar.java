@@ -25,7 +25,7 @@ public class MethodCalendar {
 		// 날짜 출력
 		for(int i=1; i<=getLastDate(month); i++) { 
 			System.out.printf("%4d", i); // 왼쪽으로 추가 여백이 생김(d->정수)
-			if((i) %7 == (7-getFirstDay(month))) {
+			if((i+getFirstDay(month)) %7== 0) {
 				System.out.println();
 			}
 		}

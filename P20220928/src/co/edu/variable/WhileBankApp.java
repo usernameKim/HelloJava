@@ -21,19 +21,18 @@ public class WhileBankApp {
 				String accNo = scn.nextLine();
 				System.out.println("예금할 금액>>> ");
 				int money = scn.nextInt();
-				
 				for(int i=0; i<banks.length; i++) {
 					if(banks[i] != null && banks[i].accNo.equals(accNo)) {
 						banks[i].balance = banks[i].balance + money;
 					}
 				}
-				for(int i=0; i<banks.length; i++) {
-					if(banks[i] != null && banks[i].balance + money <= 100000) {
-						banks[i].balance = money + banks[i].balance;
-					}else {
-						System.out.println("10만원 이상은 입금할 수 없습니디");
-					}
-				}
+//				for(int i=0; i<banks.length; i++) {
+//					if(banks[i] != null && banks[i].balance + money <= 100000) {
+//						banks[i].balance = money + banks[i].balance;
+//					}else {
+//						System.out.println("10만원 이상은 입금할 수 없습니다");
+//					}
+//				}
 				
 			}else if(menu == 2) {
 				System.out.println("출금할 계좌번호 입력>>> ");
@@ -47,15 +46,14 @@ public class WhileBankApp {
 				}
 				
 				for(int i=0; i<banks.length; i++) {
-					if(banks[i].balance - money > 0) {
+				if(banks[i] != null && banks[i].accNo.equals(accNo)) {
+					if(banks[i].balance > money) {
 						banks[i].balance = banks[i].balance - money;
-					}else {
-						System.out.println("출금할 수 없습니다.");
-					}
+					}else
+						System.out.println("잔고부족");
 				}
 				
-				
-				
+				}
 			}else if(menu == 3) {
 				System.out.println("조회할 계좌번호 입력>>> ");
 				String accNo = scn.nextLine();

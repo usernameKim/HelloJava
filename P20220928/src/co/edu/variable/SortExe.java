@@ -9,7 +9,7 @@ public class SortExe {
 		// 케이스 : n1 > n2 > n3 =>
 		// 케이스 : n1 < n2 > n3 =>
 		//1) 4개 -> 3번비교, 2번비교, 1번비교.
-		for(int j=0; j <numAry.length -1; j++)
+		for(int j=0; j <numAry.length -1; j++) {
 			for (int i=0; i < numAry.length -1; i++) {
 				if(numAry[i] > numAry[i + 1]) { //i :0 첫번째 위치> 두번째 위치 비교
 					int temp =0;
@@ -17,6 +17,7 @@ public class SortExe {
 					numAry[i] = numAry[i + 1];
 					numAry[i + 1] = temp;
 				}
+			}
 		}
 //		// 1. 0번과 1번 비교
 //		if(numAry[0] > numAry[1]) { // 34 > 21

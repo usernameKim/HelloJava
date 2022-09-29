@@ -13,7 +13,7 @@ public class WhileExe {
 		Scanner scn = new Scanner(System.in);
 		while(true) {
 			System.out.println("월을 선택하세요. 종료는 -1");
-			int input = scn.nextInt();
+			int input = scn.nextInt(); //class만 대문자써주기
 			if(input == -1) {
 				break;
 			}

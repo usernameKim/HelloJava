@@ -12,8 +12,8 @@ public class MethodExample {
 		int sum =0;
 		for(int i=0; i < ary.length; i++) {
 			sum = sum + ary[i];
-			
-		}return sum;
+			}
+			return sum;
 	}
 	
 	// 두 수의 나눈 결과를 반환하는 메소드.
