@@ -13,17 +13,16 @@ public class GetSameVal {
 		
 		String[] names = {"김현지","김유리","남미주","송지은"};
 		
-		boolean isChecked = false;
+		boolean isChecked = false; //true
 		for(int i=0; i < names.length; i++ ) { //0<4<i++와 같음
 			// "몇번째 위치에 있습니다." 출력.
 			if(names[i].equals(name)) { //문자열비교는 문자열.equals(비교문자열) ==안됨
 				System.out.println(( i + 1)+"번째 위치에 있습니다."); //+로 이어줌
-				isChecked = true;
+				isChecked = true; //false
 				break;
-				
 			}
 		}
-		if(!isChecked) {
+		if(!isChecked) { //isChecked
 			System.out.println("찾는 이름이 없습니다.");
 		}
 		System.out.println("입력값: "+name);
