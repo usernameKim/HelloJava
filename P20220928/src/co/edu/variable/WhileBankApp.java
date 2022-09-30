@@ -22,8 +22,8 @@ public class WhileBankApp {
 				System.out.println("예금할 금액>>> ");
 				int money = scn.nextInt();
 				for(int i=0; i<banks.length; i++) {
-					if(banks[i] != null && banks[i].accNo.equals(accNo)) {
-						banks[i].balance = banks[i].balance + money;
+					if(banks[i] != null && banks[i].getAccNo().equals(accNo)) {
+						banks[i].setBalance(banks[i].getBalance() + money)  ;
 					}
 				}
 //				for(int i=0; i<banks.length; i++) {
@@ -40,15 +40,15 @@ public class WhileBankApp {
 				System.out.println("출금할 금액>>> ");
 				int money = scn.nextInt();
 				for(int i=0; i<banks.length; i++) {
-					if(banks[i] != null && banks[i].accNo.equals(accNo)) {
-						banks[i].balance = banks[i].balance - money;
+					if(banks[i] != null && banks[i].getAccNo().equals(accNo)) {
+						banks[i].setBalance(banks[i].getBalance() - money)  ;
 					} 
 				}
 				
 				for(int i=0; i<banks.length; i++) {
-				if(banks[i] != null && banks[i].accNo.equals(accNo)) {
-					if(banks[i].balance > money) {
-						banks[i].balance = banks[i].balance - money;
+				if(banks[i] != null && banks[i].getAccNo().equals(accNo)) {
+					if(banks[i].getBalance() > money) {
+						banks[i].setBalance(banks[i].getBalance() - money)  ;
 					}else
 						System.out.println("잔고부족");
 				}
@@ -58,8 +58,8 @@ public class WhileBankApp {
 				System.out.println("조회할 계좌번호 입력>>> ");
 				String accNo = scn.nextLine();
 				for(int i=0; i<banks.length; i++) {
-					if(banks[i] != null && banks[i].accNo.equals(accNo)) {
-						System.out.println("잔액: "+ banks[i].balance);
+					if(banks[i] != null && banks[i].getAccNo().equals(accNo)) {
+						System.out.println("잔액: "+ banks[i].getBalance());
 					}
 				}
 				
@@ -73,8 +73,8 @@ public class WhileBankApp {
 				System.out.println("예금주>>> ");
 				String owner = scn.nextLine();
 				Account acc = new Account(); // 인스턴스 생성
-				acc.accNo = accNo;   //accNo -> field
-				acc.owner = owner;
+				acc.setAccNo(accNo);   //accNo -> field
+				acc.setOwner(owner);
 				// 계좌번호 생성.
 				for(int i=0; i<banks.length; i++) {
 					if(banks[i] == null) {
