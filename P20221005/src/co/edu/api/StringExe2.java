@@ -25,6 +25,8 @@ public class StringExe2 {
 		// aBcD => AbCd 97(a):65(A), 98(b):66 122(소문자범위) '32'를 빼면 대문자값, 더하면 소문자값이 나옴.
 		// 소문자: 97 ~ 122, 대문자: 65 ~ 90
 		String[] msgAry = msg.split("");
+		byte[] bytes = new byte[msg.length()];
+		int i =0;
 		for (String str : msgAry) {
 			char chr = str.charAt(0);
 			int chr2 =0;
