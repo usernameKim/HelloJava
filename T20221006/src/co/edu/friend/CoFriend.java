@@ -11,8 +11,10 @@ public class CoFriend extends Friend{
 	}
 	// get, set 메소드 작성.
 
-	public CoFriend(String name, String number, String colName, String depName) {
-		
+	public CoFriend(String name, String phoneNumber, String company, String department) {
+		super(name, phoneNumber);
+		this.company = company;
+		this.department = department;
 	}
 
 	public String getCompany() {

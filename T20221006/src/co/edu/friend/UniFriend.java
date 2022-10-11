@@ -32,7 +32,7 @@ public class UniFriend extends Friend {
 	// Friend클래스의 getInfo() 를 overriding 하세요.
 	@Override
 	public String getInfo() {
-		return "학교친구의 이름은 " + getName() //
+		return "학교친구의 이름은 " + getName() // private 속성이라 메소드 써줘서 불러야함.
 		+ ", 연락처는 " + getPhoneNumber() //
 		+ ", 학교명은 " + this.college //
 		+ ", 전공은 " + this.major;

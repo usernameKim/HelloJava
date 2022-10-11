@@ -39,20 +39,21 @@ public class FriendListImpl implements FriendService {
 		// 친구이름을 찾아서 연락처를 변경하도록 추가하세요.
 		int result = -1;
 		for(int i=0; i<friendList.length; i++) {
-			if(friendList[i].getName().equals(name)) {
-				
+			if(friendList[i] != null && friendList[i].getName().equals(name)) {
+				friendList[i].setPhoneNumber(phoneNumber);
 				break;
 			}
 		} 
 	}
 	
 	@Override
-	public void delFriend(String phoneNo) {
+	public void delFriend(String phoneNumber) {
 		// 삭제할 연락처를 입력받아서 배열에서 찾아 삭제하세요.
 		int result = -1;
 		for(int i=0; i<friendList.length; i++) {
-			if(friendList[i].getPhoneNumber().equals(phoneNo) ) {
-				
+			if(friendList[i] != null && friendList[i].getPhoneNumber().equals(phoneNumber) ) {
+				friendList[i] = null;
+				break;
 			}
 		}
 
