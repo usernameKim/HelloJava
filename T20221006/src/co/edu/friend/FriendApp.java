@@ -12,23 +12,20 @@ public class FriendApp {
 		while (true) {
 			System.out.println("1.추가 2.리스트 3.수정 4.삭제 9.종료");
 			System.out.print("선택>> ");
-			int menu = 0;
-			try {
-				menu = Integer.parseInt(scn.nextLine());
-			} catch (NumberFormatException e) {
-				System.out.println("잘못된 메뉴를 선택했습니다.");
-			}
+			
+			int menu = scn.nextInt();
 			if (menu == 1) { //
 				Friend friend = null;
-				System.out.println("1.대학친구 2.회사친구 3.친구");
+				
 				int subMenu = scn.nextInt();
 				scn.nextLine();
+				System.out.println("이름>>");
+				String name = scn.nextLine();
+				System.out.println("연락처>>");
+				String number = scn.nextLine();
 				if (subMenu == 1) {
 					// 학교친구정보등록
-					System.out.println("대학친구 이름을 입력하세요.");
-					String name = scn.nextLine();
-					System.out.println("대학친구 연락처를 입력하세요.");
-					String number = scn.nextLine();
+					
 					System.out.println("대학명을 입력하세요.");
 					String uniName = scn.nextLine();
 					System.out.println("전공명을 입력하세요.");
@@ -39,10 +36,7 @@ public class FriendApp {
 
 				} else if (subMenu == 2) {
 					// 회사친구등록
-					System.out.println("회사친구 이름을 입력하세요.");
-					String name = scn.nextLine();
-					System.out.println("회사친구 연락처를 입력하세요.");
-					String number = scn.nextLine();
+					
 					System.out.println("회사명을 입력하세요.");
 					String colName = scn.nextLine();
 					System.out.println("부서명을 입력하세요.");
@@ -53,10 +47,7 @@ public class FriendApp {
 
 				} else {
 					// 친구정보등록
-					System.out.println("친구 이름을 입력하세요.");
-					String name = scn.nextLine();
-					System.out.println("친구 연락처를 입력하세요.");
-					String number = scn.nextLine();
+				
 					System.out.println("친구가 등록되었습니다.");
 					friend = new Friend(name, number);
 
@@ -69,7 +60,7 @@ public class FriendApp {
 				for (int i = 0; i < list.length; i++) {
 					if (list[i] != null) {
 						System.out.println(list[i].getInfo());
-						break;
+						
 					}
 				}
 			} else if (menu == 3) {
