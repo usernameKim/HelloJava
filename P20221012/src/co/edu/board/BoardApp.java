@@ -47,6 +47,10 @@ public class BoardApp {
 				System.out.println("글정보 수정완료");
 				
 			}else if(menu == 3) {
+				System.out.println("삭제할 글번호 입력");
+				int number = Integer.parseInt(scn.nextLine());
+	
+				dao.delete(number);
 				
 			}else if(menu == 4) {
 				

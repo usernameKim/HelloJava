@@ -7,7 +7,7 @@ public class FriendApp {
 	public static void main(String[] args) {
 
 		Scanner scn = new Scanner(System.in);
-		FriendService service = new FriendListImpl(); // FriendListImpl 인스턴스 생성.
+		FriendService service = FriendListImpl.getInstance(); // FriendListImpl 인스턴스 생성.
 
 		while (true) {
 			System.out.println("1.추가 2.리스트 3.수정 4.삭제 9.종료");
