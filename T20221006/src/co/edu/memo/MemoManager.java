@@ -70,12 +70,12 @@ public class MemoManager { // 실제 조회,입력,삭제 기능 입력
 	// 파일을 읽어서 데이터 memoStorage에 담는 기능.
 	public void readFromFile() {
 		// try with resource.
-		try( FileInputStream fis = new FileInputStream(file);
-			 ObjectInputStream ois = new ObjectInputStream(fis);
-				){
+		try( FileInputStream fis = new FileInputStream(file); // 데이터를 읽기 위한 스트림 객체 생성
+			 ObjectInputStream ois = new ObjectInputStream(fis); //
+				){									// 바이트 배열을 다시 객체로 복원
 			
 			
-			memoStorage = (List<Memo>) ois.readObject();
+			memoStorage = (List<Memo>) ois.readObject(); 
 			
 		}catch(Exception e) {
 //			e.printStackTrace();
@@ -85,12 +85,12 @@ public class MemoManager { // 실제 조회,입력,삭제 기능 입력
 	
 	// 종료하면 파일저장.
 	public void storeToFile() {
-		try( FileOutputStream fos = new FileOutputStream(file); 
-			ObjectOutputStream oos = new ObjectOutputStream(fos) //컬렉션타입, 객체를 읽기 위해 써줌
-			){
-			oos.writeObject(memoStorage); // 파일저장
+		try( FileOutputStream fos = new FileOutputStream(file);  //파일에 저장하기 위해 파일 출력 스트림 객체 생성
+			ObjectOutputStream oos = new ObjectOutputStream(fos) //컬렉션타입, 객체를 읽기 위해 써줌, 객체를 파일에 출력하기 위한 스트림 객체 생성
+			){									 // 파일저장(객체 -> 바이트) : 직렬화
+			oos.writeObject(memoStorage);
 		}catch(Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 	}
 }
