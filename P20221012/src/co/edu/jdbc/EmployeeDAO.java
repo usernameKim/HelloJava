@@ -8,7 +8,7 @@ public class EmployeeDAO extends DAO {
 	
 	//삭제
 	public boolean delete(int empId) {
-		String sql = ("delete from empl where employee_id =?");
+		String sql = "delete from empl where employee_id =?";
 		conn = getConnect();
 		try {
 			psmt = conn.prepareStatement(sql);

@@ -94,8 +94,13 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "글번호 " + number + "글제목 " + title 
-				+ "글내용 " + content + "작성자" + writer
-				+ "작성일시 " + date + "읽은횟수 " + count;
+		return "글번호 " + number + " 글제목 " + title 
+				+ " 글내용 " + content + " 작성자 " + writer
+				+ " 작성일시 " + date + " 읽은횟수 " + count;
 	}
-}
+	public String showInfo() {
+		return "글번호 " + number + "글제목 " + title
+				+ "작성자 " + title + "작성일시 " + date;
+	}
+	}
+

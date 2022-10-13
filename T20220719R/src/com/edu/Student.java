@@ -5,7 +5,7 @@ public class Student {
 	private String studNo;
 	private String studName;
 	private int score;
-
+	
 	public Student() {
 	}
 

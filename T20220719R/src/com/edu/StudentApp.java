@@ -11,5 +11,8 @@ public class StudentApp {
 
 	public void execute() {
 		// 추가, 목록, 수정.
+		while(true) {
+			System.out.println("1.추가 2.목록조회 3.수정 9.종료");
+		}
 	}
 }
