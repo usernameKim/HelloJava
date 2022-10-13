@@ -48,13 +48,18 @@ public class BoardDAO extends DAO {
 	// 상세조회
 	public Board searchDetail(int number) {
 		String sql = "select * from board where board_num =?";
+		String cnt = " update board set cnt = cnt + 1 where board_num = ?";
 		conn = getConnect();
 		Board brd = null;
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, number);
-
 			rs = psmt.executeQuery();
+
+			psmt = conn.prepareStatement(cnt);
+			psmt.setInt(1, number);
+			psmt.executeUpdate();
+
 			if (rs.next()) {
 				brd = new Board(rs.getInt("board_num"), rs.getString("board_title"), rs.getString("board_content"),
 						rs.getString("board_writer"), rs.getString("creation_date"), rs.getInt("cnt"));
@@ -71,14 +76,14 @@ public class BoardDAO extends DAO {
 	}
 
 	// 수정
-	public void update(Board brd2) {
+	public void update(Board brd) {
 		String sql = "update board " + "set board_num = ?," + "    board_content = ?" + "where board_num = ?";
 		conn = getConnect();
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, brd2.getNumber());
-			psmt.setString(2, brd2.getContent());
-			psmt.setInt(3, brd2.getNumber());
+			psmt.setInt(1, brd.getNumber());
+			psmt.setString(2, brd.getContent());
+			psmt.setInt(3, brd.getNumber());
 
 			int r = psmt.executeUpdate();
 			System.out.println(r + "건 수정됨.");
@@ -116,18 +121,67 @@ public class BoardDAO extends DAO {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, id); // setString -> 바이트 정보를 넣는 것
 			rs = psmt.executeQuery();
-		if(rs.next()) {
-			if(rs.getString("id").equals(id)) {  // getString->문자로 가져옴
-				return true;
+			if (rs.next()) {
+				if (rs.getString("id").equals(id)) { // getString->문자로 가져옴
+					return true;
+				}
+			} else {
+				return false;
 			}
-		}else {
-			return false;
-		}
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			disconnect();
 		}
 		return false;
 	}
+
+	// 댓글달기
+	public void insert2(Reply r) {
+		String sql = "insert into reply (rep_seq, board_num, rep_content, rep_writer)\r\n"
+				+ " values(reply_seq.nextval," + ", '" + r.getBrdnum() + "', '" + r.getRcontent() + "', '"
+				+ r.getRwriter() + "')";
+		System.out.println(sql);
+		conn = getConnect();
+		try {
+			stmt = conn.createStatement();
+			int ry = stmt.executeUpdate(sql);
+			System.out.println(ry + "입력됨");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+	}
+
+	// 댓글조회
+	public List<Reply> search2(int number){
+		conn = getConnect();
+		List<Reply> list = new ArrayList<>();
+		String sql = "select * from reply where board_num =?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, number);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				list.add(new Reply(rs.getInt("rep_seq")
+				,rs.getInt("board_num")
+				,rs.getString("rep_content")
+				,rs.getString("rep_writer")
+				,rs.getString("creation_date")));
+									
+			}		
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+	}
+		return list;
+	}
+	
+	// 댓글삭제
+//	public boolean delete2(int rseq) {
+//	
+//	}
 }

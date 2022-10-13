@@ -5,11 +5,15 @@ public class CollegeStudent extends Student{
 	private String professor;
 	private String major;
 	// 생성자.
-	public CollegeStudent(String professor, String major) {
+	public CollegeStudent(String studNo, String studName, int score, String professor, String major) {
 		super(studNo, studName, score);
 		this.professor = professor;
 		this.major = major;
 	}
 	// toString()
-
+	@Override
+	public String toString() {
+		return "담당교수 정보는 " + professor +", 전공과목은 " + major + "입니다.";
+		
+	}
 }
