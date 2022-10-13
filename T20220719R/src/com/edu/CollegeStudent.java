@@ -5,8 +5,13 @@ public class CollegeStudent extends Student{
 	private String professor;
 	private String major;
 	// 생성자.
+	public CollegeStudent() {};
 	public CollegeStudent(String studNo, String studName, int score, String professor, String major) {
 		super(studNo, studName, score);
+		this.professor = professor;
+		this.major = major;
+	}
+	public CollegeStudent(String professor, String major) {
 		this.professor = professor;
 		this.major = major;
 	}

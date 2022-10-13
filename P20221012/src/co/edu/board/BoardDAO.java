@@ -83,7 +83,7 @@ public class BoardDAO extends DAO {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, brd.getNumber());
 			psmt.setString(2, brd.getContent());
-			psmt.setInt(3, brd.getNumber());
+			
 
 			int r = psmt.executeUpdate();
 			System.out.println(r + "건 수정됨.");

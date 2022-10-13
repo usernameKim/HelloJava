@@ -12,6 +12,10 @@ public class HighStudent extends Student{
 		this.grade = grade;
 	}
 	
+	public HighStudent(String teacher, String grade) {
+		this.teacher = teacher;
+		this.grade = grade;
+	}
 	// toString()
 	@Override
 	public String toString() {

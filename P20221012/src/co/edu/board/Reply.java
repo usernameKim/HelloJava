@@ -7,6 +7,9 @@ public class Reply {
 	private String rwriter;
 	private String date;
 	
+	public Reply(){
+		
+	}
 	public Reply(int rseq, int brdnum, String rcontent, String rwriter, String date) {
 		this.rseq = rseq;
 		this.brdnum =brdnum;
