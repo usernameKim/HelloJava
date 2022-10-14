@@ -15,7 +15,7 @@ public class StudentApp {
 			System.out.println("1.추가 2.목록조회 3.수정 9.종료");
 			System.out.print("선택>> ");
 			
-			int menu = scn.nextInt(); 	
+			int menu = scn.nextInt(); scn.nextLine();	
 			
 			if(menu == 1) {
 			Student student = null;	
@@ -27,7 +27,7 @@ public class StudentApp {
 				System.out.println("학생이름 입력");
 				String studName = scn.nextLine();
 				System.out.println("학생점수 입력");
-				int score = scn.nextInt();
+				int score = scn.nextInt(); scn.nextLine();
 				
 				if(subMenu == 1) {
 					//학생 번호, 이름, 점수

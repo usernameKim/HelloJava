@@ -5,6 +5,8 @@ public class StudentExe {
 		StudentApp app = new StudentApp();
 		app.execute();
 		
+		
+		
 	}
 	
 }

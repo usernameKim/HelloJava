@@ -12,6 +12,7 @@ public class BoardApp {
 		Scanner scn = new Scanner(System.in);
 		boolean checked = false;
 		String storage = null;
+		Reply reply = new Reply();
 
 		while (!checked) {
 			System.out.println("로그인아이디를 입력");
@@ -66,7 +67,7 @@ public class BoardApp {
 						brd = new Board(number, content);
 						dao.update(brd);
 						System.out.println("글정보 수정완료");
-					}else {
+					} else {
 						System.out.println("수정권한 없음.");
 					}
 				}
@@ -98,33 +99,32 @@ public class BoardApp {
 				System.out.println(dao.searchDetail(number));
 
 				// 댓글 상세보기
-//				if (brd != null) {
-//					System.out.println(x);
-//					
-//					List<Reply> replies = dao.getReply(brdnum);
-//					for (Reply i : replies) {
-//						System.out.println(i.toString());
-//					}
-//					
-//					System.out.println("댓글을 다시겠어요..? 1.네 2.아뇨");
-//					System.out.println("메뉴 선택 >>");
-//					int submenu = Integer.parseInt(scn.nextLine());
-//					if (submenu == 1) {
-//						int bNumber = brdnum;
-//						System.out.println("댓글 내용 >> ");
-//						String reContent = scn.nextLine();
-//						String reWriter = logid;
-//
-//						reply = new Reply(brdnum, rcontent, rwriter);
-//						dao.addReply(reply);
-//					} else if (submenu == 2) {
-//						// 메뉴로 나가기.
-//					}
-//				}else {
-//					System.out.println("글이 없습니다.");
-//				}
-				
-				
+				if (dao.searchDetail(number) != null) {
+					System.out.println(dao.searchDetail(number));
+
+					List<Reply> replies = dao.getReply(rseq);
+					for (Reply i : replies) {
+						System.out.println(i.toString());
+					}
+
+					System.out.println("댓글을 다시겠어요..? 1.네 2.아뇨");
+					System.out.println("메뉴 선택 >>");
+					int submenu = Integer.parseInt(scn.nextLine());
+					if (submenu == 1) {
+						int bNumber = brdnum;
+						System.out.println("댓글 내용 >> ");
+						String rcontent = scn.nextLine();
+						String rwriter = storage;
+
+						reply = new Reply(brdnum, rcontent, rwriter);
+						dao.insert2(reply);
+					} else if (submenu == 2) {
+						// 메뉴로 나가기.
+					}
+				} else {
+					System.out.println("글이 없습니다.");
+				}
+
 			} else if (menu == 9) {
 				System.out.println("종료");
 				break;
