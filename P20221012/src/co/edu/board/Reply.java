@@ -18,6 +18,11 @@ public class Reply {
 		this.date = date;
 	}
 
+	public Reply(int brdnum, String rcontent, String rwriter) {
+		this.brdnum =brdnum;
+		this.rcontent = rcontent;
+		this.rwriter = rwriter;
+	}
 	public int getRseq() {
 		return rseq;
 	}

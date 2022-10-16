@@ -102,7 +102,7 @@ public class BoardApp {
 				if (dao.searchDetail(number) != null) {
 					System.out.println(dao.searchDetail(number));
 
-					List<Reply> replies = dao.getReply(rseq);
+					List<Reply> replies = dao.search2(number);
 					for (Reply i : replies) {
 						System.out.println(i.toString());
 					}
@@ -111,12 +111,12 @@ public class BoardApp {
 					System.out.println("메뉴 선택 >>");
 					int submenu = Integer.parseInt(scn.nextLine());
 					if (submenu == 1) {
-						int bNumber = brdnum;
+						int bNumber = number;
 						System.out.println("댓글 내용 >> ");
 						String rcontent = scn.nextLine();
 						String rwriter = storage;
 
-						reply = new Reply(brdnum, rcontent, rwriter);
+						reply = new Reply(bNumber, rcontent, rwriter);
 						dao.insert2(reply);
 					} else if (submenu == 2) {
 						// 메뉴로 나가기.

@@ -13,7 +13,7 @@ public class DaoMain {
 		service2.delete();
 		
 		DaoService dao = new EmpServiceImpl("영업");
-		 dao = new DeptServiceImpl();
+//		 dao = new DeptServiceImpl();
 		dao.insert();
 		dao.search();
 		dao.delete();

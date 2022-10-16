@@ -122,7 +122,7 @@ public class BoardDAO extends DAO {
 			psmt.setString(1, id); // setString -> 바이트 정보를 넣는 것
 			rs = psmt.executeQuery();
 			if (rs.next()) {
-				if (rs.getString("id").equals(id)) { // getString->문자로 가져옴
+				if (rs.getString("passwd").equals(pw)) { // getString->문자로 가져옴
 					return true;
 				}
 			} else {
@@ -180,8 +180,5 @@ public class BoardDAO extends DAO {
 		return list;
 	}
 	
-	// 댓글삭제
-//	public boolean delete2(int rseq) {
-//	
-//	}
+	
 }
