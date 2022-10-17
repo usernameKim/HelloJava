@@ -50,9 +50,14 @@ public class Board {
 		this.writer = writer;
 	}
 
-//	@Override
-//	public String toString() {
-//		return 
-//	}
+	@Override
+	public String toString() {
+		return "글번호 " + number + " 글제목 " + title 
+			+ " 글내용 " + content + " 작성자 " + writer;
+	}
+	public String showInfo() {
+		return "글번호 " + number + "글제목 " + title
+				+ "작성자 " + writer;
+	}
 
 }

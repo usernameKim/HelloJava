@@ -53,10 +53,6 @@ public class ComponentExam3 extends JFrame {
 					
 					displayText += keyOper;
 					display.setText(displayText);	
-//					if(keyOper.equals("C")) {
-//						display.setText("");
-//					
-//					}
 				} 
 			});
 			
