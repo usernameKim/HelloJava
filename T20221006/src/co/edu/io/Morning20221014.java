@@ -1,50 +1,51 @@
 package co.edu.io;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Morning20221014 {
 	public static void main(String[] args) {
-		File file = new File ("C:/Temp/memberList.txt");
-		ArrayList<Member> MemberList = new ArrayList<>()  ;
-		Scanner scn = new Scanner(System.in);
+		File file = new File("C:/Temp/memberList.txt");
+		List <Member> list = new ArrayList<>();
 		String x = null;
-		
-		
-		while (true) {
-			String member = scn.nextLine();
-			System.out.println("1.회원등록");
-			System.out.print("아이디>> ");
-			String id = scn.nextLine();
+		Scanner scn = new Scanner(System.in);
 			
-			if(id.equals("quit")) {
-				System.out.println("입력 끝");
-				break;}
-			}
+	while(true) {
+		System.out.println("회원 목록 입력 해버령 - 종료하고 싶으면 quit 입력해");
+		System.out.println("회원아이디 >> ");
+		String uId = scn.nextLine();
 		
-		System.out.println("2.회원이름");
-		String name = scn.nextLine();
-		System.out.println("3.회원포인트");
-		int point = Integer.parseInt(scn.nextLine());
-		
-		MemberList.add(new Member(id, name, point));
-			
-	
-
-	try(FileWriter fw = new FileWriter(file);){
-		for (int i = 0; i < list.size(); i++) {
-			x = list.get(i).getid() + " " + list.get(i).getname() + " " + list.get(i).getpoint();
-			fw.write(x + " ");
+		if(uId.equals("quit")) {
+			System.out.println("입력 종료");
+			break;
 		}
-		System.out.println("저장성공");
-	}catch(Exception e)
-	{
-		e.printStackTrace();
+		
+		System.out.println("회원이름 >> ");
+		String uName = scn.nextLine();
+		System.out.println("회원포인트 >> ");
+		int uPoint = Integer.parseInt(scn.nextLine());
+		
+		list.add(new Member(uId, uName, uPoint));
+		
+		
 	}
-}scn.close();}
+	
+		try(FileWriter fw = new FileWriter(file);
+			){
+			for(int i =0; i<list.size(); i++) {
+				x = list.get(i).getId() + " " + list.get(i).getName()
+						+ " " + list.get(i).getPoint();
+				
+				fw.write(x + " ");
+			}
+			System.out.println("저장 성공");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}scn.close();
+		
+		
+	}
 }
