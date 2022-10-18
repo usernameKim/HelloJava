@@ -81,6 +81,7 @@ public class BoardApp {
 					}
 				}else {
 					System.out.println("찾는 글이 없습니다");
+					break;
 				}
 			}
 				System.out.println("댓글보기>");

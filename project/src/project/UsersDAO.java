@@ -52,8 +52,8 @@ public class UsersDAO extends DAO{
 			conn = getConnect();
 			try {
 				psmt = conn.prepareStatement(sql);
-				psmt.setString(1, id);
-				psmt.setString(2, passwd);
+				psmt.setString(1, bye.getId());
+				psmt.setString(2, bye.getPw());
 
 				psmt.executeUpdate();
 			} catch (Exception e) {
