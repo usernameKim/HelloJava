@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import co.edu.board.Board;
-
 public class BoardDAO extends DAO {
 	
 	
@@ -110,7 +108,7 @@ public class BoardDAO extends DAO {
 			psmt.setInt(1, number);
 			psmt.executeUpdate();
 			
-			psmt = conn.prepareStatement("select * from board where board_num = "+no);	
+			psmt = conn.prepareStatement("select * from board where board_num = "+number);	
 			rs = psmt.executeQuery();
 			if (rs.next()) {// 값이없으면 null이 리턴
 				brd = new Board(rs.getInt("board_num")//
@@ -126,6 +124,8 @@ public class BoardDAO extends DAO {
 		}
 		return brd;
 	}
+	
+	//게시글 조회
 	public Board IdNum(String id, int no) {
 		conn = getConnect();
 		Board brd = null;

@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.edu.board.Reply;
-
 public class ReplyDAO extends DAO {
 	Connection conn = null;
 	
@@ -30,18 +28,18 @@ public class ReplyDAO extends DAO {
 
 	// 댓글 조회
 	public List<Reply> checkRep(int number) {
-		List<Reply> list = null;
+		List<Reply> list = new ArrayList<>();
 		conn = getConnect();
 		try {
 			psmt = conn.prepareStatement("select * from reply where board_num =?");
 			psmt.setInt(1, number);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
-				list.add(new Reply(rs.getInt("req_seq")
+				list.add(new Reply(rs.getInt("rep_seq")
 						, rs.getInt("board_num")
 						, rs.getString("rep_content")
 						,rs.getString("rep_writer")
-						, rs, getString("creation_date")));
+						, rs.getString("creation_date")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

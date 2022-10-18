@@ -44,9 +44,9 @@ public class BoardApp {
 				System.out.println("다른 숫자를 입력하세요>> ");
 			}
 		}
+		System.out.println("<<00수업 대나무숲에 오신 것을 환영합니다!>>");
 		while (true) {
-			System.out.println("<< 00수업 대나무숲	>>");
-			System.out.println("1.글작성 2.글조회(댓글포함) 3.수정 4.삭제 5.목록조회 9.종료");
+			System.out.println("1.글작성 2.글조회(댓글포함) 3.수정 4.삭제 5.목록조회 6.탈퇴 9.종료");
 			try {
 				int menu = Integer.parseInt(scn.nextLine());
 			if (menu == 1) {
@@ -64,7 +64,7 @@ public class BoardApp {
 			
 			}else if(menu ==2) {
 				Board idx = null;
-				System.out.println("게시글을 조회합니다.");
+				System.out.println("게시글을 조회합니다");
 				while(true) {
 				System.out.println("조회할 글번호를 입력하세요>> ");
 				int number = Integer.parseInt(scn.nextLine());
@@ -73,11 +73,8 @@ public class BoardApp {
 					idx = dao.IdNum(logined.getId(), number);
 					if(idx != null) {
 						Board forCnt = dao.directBrd(number);
-						System.out.println(forCnt.getNumber()+"번글     "
-								+ "<"+forCnt.getTitle()+"> "
-								+ "조회수:" + forCnt.getCnt()+
-								" \n글 내용: "+forCnt.getContent()+
-								" \n작성일시: "+forCnt.getDate());
+						System.out.println(forCnt.getNumber()+"번글 "+ "<"+forCnt.getTitle()+"> "+ "조회수:" + forCnt.getCnt()+
+								" \n글 내용: "+forCnt.getContent()+ " \n작성일시: "+forCnt.getDate());
 						break;
 					} else {
 						System.out.println("권한이 없습니다");
@@ -86,13 +83,13 @@ public class BoardApp {
 					System.out.println("찾는 글이 없습니다");
 				}
 			}
-				System.out.println("댓글관련 입니다.");
+				System.out.println("댓글보기>");
 				while(true) {
 					System.out.println("1.조회 2.작성 3.댓글삭제 4.종료");
 					int submenu = Integer.parseInt(scn.nextLine());
 					//댓글 조회(1)
 					if(submenu==1) {
-						System.out.println(">댓글조회<");
+						System.out.println("댓글을 조회합니다");
 						List<Reply> list = rDao.checkRep(idx.getNumber());
 						if(list!=null) {
 							for (Reply r : list) {
@@ -106,6 +103,7 @@ public class BoardApp {
 						}
 					}else if(submenu ==2) {//댓글 작성(2)
 						System.out.println("댓글 내용>> ");
+					
 						String reCont = scn.nextLine();
 						Reply newR = new Reply(idx.getNumber(), reCont, idx.getWriter());
 						rDao.inputRep(newR);
@@ -142,9 +140,9 @@ public class BoardApp {
 					if (x==null) {
 						System.out.println("권한이 없습니다");
 					}else {
-						System.out.println("글제목 변경내용 입력>> ");
+						System.out.println("변경할 제목을 입력하세요>> ");
 						String title = scn.nextLine();
-						System.out.println("글내용 변경내용 입력>> ");
+						System.out.println("변경할 내용을 입력하세요>> ");
 						String content = scn.nextLine();
 						Board bd = new Board(num, title, content, logined.getName(), x.getCnt());
 						dao.updateBrd(bd);
@@ -158,7 +156,7 @@ public class BoardApp {
 				System.out.println("삭제할 글번호를 입력하세요>> ");
 				int num = Integer.parseInt(scn.nextLine());
 				Board x = dao.IdNum(logined.getId(), num);
-				if (x==null) {
+				if (x == null) {
 					System.out.println("권한이 없습니다");
 				}else {
 					dao.deleteBrd(num);
@@ -167,29 +165,31 @@ public class BoardApp {
 			} else if (menu == 5) {
 				System.out.println("5.전체목록조회");
 				List<Board> boards = dao.checkBrd();
-				for(int i=(boards.size() - 1); i>0; i--) {
+				for(int i=0; i<boards.size(); i++) {
 					System.out.println(boards.get(i).getNumber()+") 제목:"//
 							+boards.get(i).getTitle()+" 작성자:"+boards.get(i).getWriter()//
 							+" 조회수:"+boards.get(i).getCnt());
-					if(i%10==0) {
-						System.out.println("이전페이지 전환: y 입력");
-						String yn = scn.nextLine().toLowerCase();
-						if (yn.equals("y")) {
-						}else {
-							System.out.println("조회를 마칩니다");
-							break;
-						}
-					}
 				}
-			} else if (menu == 9) {
-				System.out.println(" [9.종료]");
+			} else if(menu ==6) {
+				Users bye = new Users();
+				System.out.println("6.탈퇴");
+				System.out.println("탈퇴할 아이디를 입력하세요");
+				String id = scn.nextLine();
+				System.out.println("탈퇴할 비밀번호를 입력하세요");
+				String passwd = scn.nextLine();
+				bye = new Users(id, passwd);
+				uDao.delUser(bye);
+				
+			}		
+			 else if (menu == 9) {
+				System.out.println("9.종료");
 				System.out.println("프로그램을 종료합니다");
 				break;
 			} else {
 				System.out.println("잘못된 메뉴입니다");
 			}
 		} catch (NumberFormatException e) {
-			System.out.println("숫자를 입력하시오");
+			System.out.println("숫자를 입력하세요");
 		} // try catch 끝
 	} // while의 끝
 

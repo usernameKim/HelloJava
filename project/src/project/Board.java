@@ -13,7 +13,7 @@ public class Board {
 
 	public Board() {};
 	
-	public Board(int number, String title, String content, String writer, String date, int cnt) {
+	public Board(int number, String title, String content, String writer, int cnt) {
 		SimpleDateFormat formatdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		this.number = number;
 		this.title = title;
@@ -27,7 +27,6 @@ public class Board {
 		this.number = number;
 		this.content = content;
 	}
-	
 
 	public int getNumber() {
 		return number;

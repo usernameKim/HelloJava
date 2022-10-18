@@ -14,6 +14,11 @@ public class Users {
 		this.name = name;
 	}
 
+	public Users(String id, String pw) {
+		this.id = id;
+		this.pw = pw;
+	}
+
 	public String getId() {
 		return id;
 	}
