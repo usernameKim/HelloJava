@@ -1,65 +1,63 @@
 package project;
 
-	public class Reply {
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Reply {
 		private int rseq;
-		private int reNumber;
+		private int boNum;
 		private String reContent;
 		private String reWriter;
+		private String reDate;
 
-		public Reply() {};
-		public Reply(int rseq, int reNumber, String reContent, String reWriter) {
-			this.rseq = rseq;
-			this.reNumber = reNumber;
+		public Reply(int boNum, String reContent, String reWriter) {
+			SimpleDateFormat formatdate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			this.rseq = 1;
+			this.boNum = boNum;
 			this.reContent = reContent;
 			this.reWriter = reWriter;
-		}
-
-		public Reply(int reNumber, String reContent) {
-			this.reNumber = reNumber;
-			this.reContent = reContent;
+			this.reDate = formatdate.format(new Date());
 		}
 		
-		public Reply(int reNumber, String reContent, String reWriter) {
-			this.reNumber = reNumber;
+		public Reply(int rseq, int boNum, String reContent, String reWriter, String date) {
+			this.rseq = rseq;
+			this.boNum = boNum;
 			this.reContent = reContent;
 			this.reWriter = reWriter;
+			this.reDate = date;
 		}
+	
 		public int getRseq() {
 			return rseq;
 		}
 		public void setRseq(int rseq) {
 			this.rseq = rseq;
 		}
-		public int getReNumber() {
-			return reNumber;
+		public int getBoNum() {
+			return boNum;
 		}
-
-		public void setReNumber(int reNumber) {
-			this.reNumber = reNumber;
+		public void setBoNum(int boNum) {
+			this.boNum = boNum;
 		}
-
 		public String getReContent() {
 			return reContent;
 		}
-
 		public void setReContent(String reContent) {
 			this.reContent = reContent;
 		}
-
 		public String getReWriter() {
 			return reWriter;
 		}
-
 		public void setReWriter(String reWriter) {
 			this.reWriter = reWriter;
 		}
-		@Override
-		public String toString() {
-			return "댓글번호 " + rseq + "원본글번호 " + reNumber
-					+"댓글내용 " + reContent + "댓글작성자" + reWriter;
+		public String getReDate() {
+			return reDate;
+		}
+		public void setReDate(String reDate) {
+			this.reDate = reDate;
 		}
 		
-	}
-
-
-
+		
+}
