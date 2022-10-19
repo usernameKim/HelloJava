@@ -10,8 +10,8 @@ public class BoardDAO extends DAO {
 	
 	//글등록
 	public void inputBrd (Board brd) {
-		Scanner scn = new Scanner(System.in);
-		String sql = "insert into board(board_num, board_title"
+//		Scanner scn = new Scanner(System.in);
+		String sql = "insert into theboard(board_num, board_title"
 				+ ", board_content, board_writer)"
 				+ "values(?, ?, ?, ?)";
 		conn = getConnect();
@@ -35,11 +35,11 @@ public class BoardDAO extends DAO {
 	
 	//글수정
 	public void updateBrd(Board brd) {
-		Scanner scn = new Scanner(System.in);
+//		Scanner scn = new Scanner(System.in);
 		conn = getConnect();
 		
 		try {
-			psmt = conn.prepareStatement("update board "
+			psmt = conn.prepareStatement("update theboard "
 					+ "set board_title = ?, "
 					+ " board_content = ?, "
 					+ " creation_date = sysdate "
@@ -61,7 +61,7 @@ public class BoardDAO extends DAO {
 	
 	//글삭제
 	public void deleteBrd(int number) {
-		String sql ="delete from board where board_num = ?";
+		String sql ="delete from theboard where board_num = ?";
 		conn = getConnect();
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -75,12 +75,12 @@ public class BoardDAO extends DAO {
 		}
 	}
 	
-	//글 조회
+	// 조회
 	public List<Board> checkBrd(){
 		List<Board> list = new ArrayList<>();
 		conn = getConnect();
 		try {
-			psmt = conn.prepareStatement("select * from Board");
+			psmt = conn.prepareStatement("select * from theboard");
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				list.add(new Board(rs.getInt("board_num")
@@ -103,12 +103,13 @@ public class BoardDAO extends DAO {
 		Board brd = null;
 
 		try {
-			psmt = conn.prepareStatement("update board set cnt = cnt+1 "
+			psmt = conn.prepareStatement("update theboard set cnt = cnt+1 "
 					+ "where board_num =?");
 			psmt.setInt(1, number);
 			psmt.executeUpdate();
 			
-			psmt = conn.prepareStatement("select * from board where board_num = "+number);	
+			psmt = conn.prepareStatement("select * from theboard where board_num = ?");	
+			psmt.setInt(1, number);
 			rs = psmt.executeQuery();
 			if (rs.next()) {// 값이없으면 null이 리턴
 				brd = new Board(rs.getInt("board_num")//
@@ -125,13 +126,13 @@ public class BoardDAO extends DAO {
 		return brd;
 	}
 	
-	//게시글 조회
+	//아이디와 글번호가 있는지확인 ->  게시물 조회
 	public Board IdNum(String id, int no) {
 		conn = getConnect();
 		Board brd = null;
 		
 		try {
-			psmt = conn.prepareStatement("select * from board where board_writer = ? and board_num=?");
+			psmt = conn.prepareStatement("select * from theboard where board_writer = ? and board_num=?");
 			psmt.setString(1, id);
 			psmt.setInt(2, no);
 			rs = psmt.executeQuery();
@@ -155,7 +156,7 @@ public class BoardDAO extends DAO {
 		conn = getConnect();
 		
 		try {
-			psmt = conn.prepareStatement("select * from board where board_num = ?");
+			psmt = conn.prepareStatement("select * from theboard where board_num = ?");
 			psmt.setInt(1, n);
 			rs = psmt.executeQuery();
 			if(rs.next()) {//값이없으면 null이 리턴	
@@ -168,6 +169,9 @@ public class BoardDAO extends DAO {
 		}
 		return A;
 	}
+	
+	
 }
+
 
 	

@@ -11,7 +11,7 @@ public class UsersDAO extends DAO{
 		conn = getConnect();
 //		String sql = "insert into users value(users_id, users_passwd, user_name"
 		try {
-			psmt = conn.prepareStatement("insert into users values (?, ?, ?)");
+			psmt = conn.prepareStatement("insert into theusers values (?, ?, ?)");
 			psmt.setString(1, user.getId());
 			psmt.setString(2, user.getPw());
 			psmt.setString(3, user.getName());
@@ -28,7 +28,7 @@ public class UsersDAO extends DAO{
 			conn = getConnect();
 			Users extra = null;
 			try {
-				psmt = conn.prepareStatement("select * " + "from users "+ "where id = ? and passwd = ?");
+				psmt = conn.prepareStatement("select * " + "from theusers "+ "where id = ? and passwd = ?");
 				psmt.setString(1, id);
 				psmt.setString(2, pwd);
 				rs = psmt.executeQuery();
@@ -48,7 +48,7 @@ public class UsersDAO extends DAO{
 		
 		//탈퇴
 		public void delUser(Users bye) {
-			String sql = "delete from users where id = ? and passwd = ? ";
+			String sql = "delete from theusers where id = ? and passwd = ? ";
 			conn = getConnect();
 			try {
 				psmt = conn.prepareStatement(sql);

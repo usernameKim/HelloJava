@@ -12,7 +12,7 @@ public class ReplyDAO extends DAO {
 	public void inputRep(Reply reply) {
 		conn = getConnect();
 		try {
-			psmt = conn.prepareStatement("insert into reply(rep_seq, board_num, rep_content, rep_writer, creation_date)"
+			psmt = conn.prepareStatement("insert into thereply(rep_seq, board_num, rep_content, rep_writer, creation_date)"
 					+ "values (reply_seq.nextval, ?, ?, ?, sysdate)");
 			psmt.setInt(1, reply.getBoNum());
 			psmt.setString(2, reply.getReContent());
@@ -31,7 +31,7 @@ public class ReplyDAO extends DAO {
 		List<Reply> list = new ArrayList<>();
 		conn = getConnect();
 		try {
-			psmt = conn.prepareStatement("select * from reply where board_num =?");
+			psmt = conn.prepareStatement("select * from thereply where board_num =?");
 			psmt.setInt(1, number);
 			rs = psmt.executeQuery();
 			while (rs.next()) {
@@ -49,31 +49,34 @@ public class ReplyDAO extends DAO {
 		return list;
 	}
 
-//		//댓글수정
-//		public void updateRep(Reply reply) {
-//			String sql ="update reply" + "set rep_seq = ?, "
-//					+ "rep_content= ?" + "where rep_seq = ?";
-//			conn = getConnect();
-//			try {
-//				psmt = conn.prepareStatement(sql);
-//				psmt.setInt(1, reply.getReNumber());
-//				psmt.setString(2, reply.getReContent());
-//				
-//				int r = psmt.executeUpdate();
-//				System.out.println(r+ "댓글이 수정되었습니다!");
-//			}catch(SQLException e) {
-//				e.printStackTrace();
-//			}finally {
-//				disconnect();
-//			}
-//		}
-	public boolean numCheckReply(int n) {
+		//댓글수정
+		public void updateRep(Reply reply) {
+			String sql ="update thereply " + "set rep_content= ? " 
+						+ "where rep_seq = ?";
+			conn = getConnect();
+			try {
+				System.out.println(reply.toString());
+				psmt = conn.prepareStatement(sql);
+//				psmt.setInt(1, reply.getRseq());
+				psmt.setString(1, reply.getReContent());
+				psmt.setInt(2, reply.getRseq());
+				
+				psmt.executeUpdate();
+				System.out.println("댓글이 수정되었습니다!");
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				disconnect();
+			}
+		}
+		
+	public boolean numCheckReply(int num) {
 		boolean A = false;
 		conn = getConnect();
 
 		try {
-			psmt = conn.prepareStatement("select * from reply where rep_seq = ?");
-			psmt.setInt(1, n);
+			psmt = conn.prepareStatement("select * from thereply where rep_seq = ?");
+			psmt.setInt(1, num);
 			rs = psmt.executeQuery();
 			if (rs.next()) {// 값이없으면 null이 리턴
 				A = true;
@@ -91,7 +94,7 @@ public class ReplyDAO extends DAO {
 		Reply re = null;
 
 		try {
-			psmt = conn.prepareStatement("select * from reply where rep_writer = ? and rep_seq=?");
+			psmt = conn.prepareStatement("select * from thereply where rep_writer = ? and rep_seq=?");
 			psmt.setString(1, id);
 			psmt.setInt(2, no);
 			rs = psmt.executeQuery();
@@ -111,7 +114,7 @@ public class ReplyDAO extends DAO {
 
 	// 댓글삭제
 	public void deleteRep(int number) {
-		String sql = "delete from reply where rep_seq = ?";
+		String sql = "delete from thereply where rep_seq = ?";
 		conn = getConnect();
 		try {
 			psmt = conn.prepareStatement(sql);

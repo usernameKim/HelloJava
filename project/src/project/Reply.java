@@ -28,6 +28,11 @@ public class Reply {
 			this.reDate = date;
 		}
 	
+		public Reply(int rseq, String reContent) {
+			this.rseq = rseq;
+			this.reContent = reContent;
+		}
+
 		public int getRseq() {
 			return rseq;
 		}
@@ -58,6 +63,13 @@ public class Reply {
 		public void setReDate(String reDate) {
 			this.reDate = reDate;
 		}
+
+//		@Override
+//		public String toString() {
+//			return "Reply [rseq=" + rseq + ", boNum=" + boNum + ", reContent=" + reContent + ", reWriter=" + reWriter
+//					+ ", reDate=" + reDate + "]";
+//		}
+		
 		
 		
 }

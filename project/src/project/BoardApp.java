@@ -68,13 +68,28 @@ public class BoardApp {
 				while(true) {
 				System.out.println("조회할 글번호를 입력하세요>> ");
 				int number = Integer.parseInt(scn.nextLine());
+				
+//				List<Board> board = dao.checkBrd();
+//				for(Board brd : board) {
+//					System.out.println(brd.getNumber() +"번글 "
+//									+ "<"+ brd.getTitle()+"> "
+//									+" 글 내용:  "+brd.getContent() 
+//									+ "\n조회수:" + brd.getCnt() 
+//									+ " 작성일시: "+brd.getDate() +" 입니다.");
+//				}
+				
+						
 				boolean a = dao.numCheckBoard(number);
+				
 				if(a) {
 					idx = dao.IdNum(logined.getId(), number);
 					if(idx != null) {
-						Board forCnt = dao.directBrd(number);
-						System.out.println(forCnt.getNumber()+"번글 "+ "<"+forCnt.getTitle()+"> "+ "조회수:" + forCnt.getCnt()+
-								" \n글 내용: "+forCnt.getContent()+ " \n작성일시: "+forCnt.getDate());
+						Board brd = dao.directBrd(number);
+						System.out.println(brd.getNumber()+"번글 "
+						+ "<"+brd.getTitle()+"> "
+						+" 글 내용: "+brd.getContent()
+						+ "\n조회수:" + brd.getCnt()
+						+ " 작성일시: "+brd.getDate() +" 입니다.");
 						break;
 					} else {
 						System.out.println("권한이 없습니다");
@@ -84,9 +99,9 @@ public class BoardApp {
 					break;
 				}
 			}
-				System.out.println("댓글보기>");
+				System.out.println("<댓글보기>");
 				while(true) {
-					System.out.println("1.조회 2.작성 3.댓글삭제 4.종료");
+					System.out.println("1.조회 2.작성 3.댓글삭제 4.댓글수정 5.종료");
 					int submenu = Integer.parseInt(scn.nextLine());
 					//댓글 조회(1)
 					if(submenu==1) {
@@ -94,23 +109,25 @@ public class BoardApp {
 						List<Reply> list = rDao.checkRep(idx.getNumber());
 						if(list!=null) {
 							for (Reply r : list) {
-								System.out.println("원본글번호: "+ r.getBoNum()//
-										+", 댓글번호: "+r.getRseq() +"\n댓글 내용: "//
-										+ r.getReContent() +"\n댓글작성자: "//
-										+ r.getReWriter()+" 작성일시: "+ r.getReDate());
+								System.out.println("원본글번호: "+ r.getBoNum()
+											+", 댓글번호: "+r.getRseq() 
+										+"\n댓글내용: "+ r.getReContent() 
+										+"\n댓글작성자: "+ r.getReWriter()
+										+" 작성일시: "+ r.getReDate() +" 입니다.");
 							}
 						}else {
 							System.out.println("작성된 댓글이 없습니다");
 						}
+						
 					}else if(submenu ==2) {//댓글 작성(2)
-						System.out.println("댓글 내용>> ");
-					
+						System.out.println("댓글 내용을 입력하세요.>> ");
 						String reCont = scn.nextLine();
 						Reply newR = new Reply(idx.getNumber(), reCont, idx.getWriter());
 						rDao.inputRep(newR);
+						
 					}else if(submenu ==3) {
-						System.out.println("댓글 삭제");
-						System.out.println("댓글번호>> ");
+						System.out.println("댓글을 삭제합니다.");
+						System.out.println("댓글번호를 입력하세요>> ");
 						int num = Integer.parseInt(scn.nextLine());
 						boolean a = rDao.numCheckReply(num);
 						if(a) {
@@ -124,7 +141,29 @@ public class BoardApp {
 						}else  {
 							System.out.println("일치하는 댓글이 없습니다");
 						}
-					}else if(submenu ==4) {
+					} else if(submenu == 4) {
+						System.out.println("댓글을 수정합니다.");
+						System.out.println("댓글번호를 입력하세요>> ");
+						int num = Integer.parseInt(scn.nextLine());
+						System.out.println("수정할 댓글내용을 입력하세요");
+						String reCon = scn.nextLine();
+						Reply rly = new Reply(num, reCon);
+						
+						boolean a = rDao.numCheckReply(num);
+						if(a) {
+							Reply x = rDao.IdNumReply(logined.getId(), num);
+						   if(x == null) {
+							System.out.println("권한이 없습니다");
+						   }else {
+							rDao.updateRep(rly);
+							System.out.println("댓글 수정 완료");
+						   }
+						}else {
+							System.out.println("일치하는 번호가 없습니다.");
+						}
+						
+						
+					}else if(submenu ==5) {
 							System.out.println("댓글 닫기");
 							break;
 					}else {
@@ -135,41 +174,79 @@ public class BoardApp {
 				System.out.println("3.수정");
 				System.out.println("수정할 글 번호를 입력하세요>> ");
 				int num = Integer.parseInt(scn.nextLine());
-				boolean a = dao.numCheckBoard(num);
-				if(a) {
-					Board x = dao.IdNum(logined.getId(), num);
-					if (x==null) {
-						System.out.println("권한이 없습니다");
-					}else {
+				Board brd = dao.directBrd(num);
+				
+				if(brd != null) {
+					if(brd.getNumber()== num) {
+						if(dao.IdNum(logined.getId(), num) != null){
+						
 						System.out.println("변경할 제목을 입력하세요>> ");
 						String title = scn.nextLine();
 						System.out.println("변경할 내용을 입력하세요>> ");
 						String content = scn.nextLine();
-						Board bd = new Board(num, title, content, logined.getName(), x.getCnt());
+						Board bd = new Board(num, title, content, logined.getName(), brd.getCnt());
 						dao.updateBrd(bd);
 						System.out.println("수정완료");
+						}else {
+							System.out.println("아이디가 일치하지 않습니다.");
+						}
+					}else {
+						System.out.println("찾는 글이 없습니다");
 					}
-				}else {
-					System.out.println("찾는 글이 없습니다");
 				}
+				
+//				boolean a = dao.numCheckBoard(num);
+//				
+//				if(a) {
+//					Board x = dao.IdNum(logined.getId(), num);
+//					if (x==null) {
+//						System.out.println("권한이 없습니다");
+//					}else {
+//						System.out.println("변경할 제목을 입력하세요>> ");
+//						String title = scn.nextLine();
+//						System.out.println("변경할 내용을 입력하세요>> ");
+//						String content = scn.nextLine();
+//						Board bd = new Board(num, title, content, logined.getName(), x.getCnt());
+//						dao.updateBrd(bd);
+//						System.out.println("수정완료");
+//					}
+//				}else {
+//					System.out.println("찾는 글이 없습니다");
+				
+				
 			} else if (menu == 4) {
 				System.out.println("4.삭제");
 				System.out.println("삭제할 글번호를 입력하세요>> ");
 				int num = Integer.parseInt(scn.nextLine());
-				Board x = dao.IdNum(logined.getId(), num);
-				if (x == null) {
-					System.out.println("권한이 없습니다");
-				}else {
-					dao.deleteBrd(num);
+				Board brd = dao.directBrd(num);
+				
+				if(brd != null) {
+					if(brd.getNumber()== num) {
+						if(dao.IdNum(logined.getId(), num)!=null){
+							System.out.println("삭제되었습니다");
+						}
+						dao.deleteBrd(num);
+					}else {
+						System.out.println("삭제할 수 없습니다.");
+					}
 				}
+				
+//				Board x = dao.IdNum(logined.getId(), num);
+//				if (x == null) {
+//					System.out.println("권한이 없습니다");
+//				}else {
+//					dao.deleteBrd(num);
+//				}
 
 			} else if (menu == 5) {
 				System.out.println("5.전체목록조회");
-				List<Board> boards = dao.checkBrd();
-				for(int i=0; i<boards.size(); i++) {
-					System.out.println(boards.get(i).getNumber()+") 제목:"//
-							+boards.get(i).getTitle()+" 작성자:"+boards.get(i).getWriter()//
-							+" 조회수:"+boards.get(i).getCnt());
+				System.out.println("조회할 글번호를 입력하세요");
+				List<Board> brd = dao.checkBrd();
+				for(int i=0; i<brd.size(); i++) {
+					System.out.println(brd.get(i).getNumber()+") "
+							+ "1.제목 :"+brd.get(i).getTitle()
+							+" 2.작성자 :"+brd.get(i).getWriter()
+							+" 3.조회수 :"+brd.get(i).getCnt());
 				}
 			} else if(menu ==6) {
 				Users bye = new Users();
@@ -197,5 +274,3 @@ public class BoardApp {
 }// main의 끝
 
 }
-
-			
