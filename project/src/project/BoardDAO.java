@@ -26,7 +26,7 @@ public class BoardDAO extends DAO {
 			}
 			// insert
 			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, brd.getNumber());
+			psmt.setInt(1, seqInt);
 			psmt.setString(2, brd.getTitle());
 			psmt.setString(3, brd.getContent());
 			psmt.setString(4, brd.getWriter());

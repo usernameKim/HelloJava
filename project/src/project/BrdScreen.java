@@ -135,7 +135,7 @@ public class BrdScreen extends JFrame implements ActionListener, MouseListener {
 		for (int i = 0; i < fields.length; i++) {
 			records[i] = fields[i].getText();
 		}
-		Board brd = new Board(Integer.parseInt(records[0]), records[1], records[2], records[3], 0);
+		Board brd = new Board(0, records[1], records[2], records[3], 0);
 		dao.inputBrd(brd);
 		records[0] = String.valueOf(brd.getNumber());
 
