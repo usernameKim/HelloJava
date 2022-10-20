@@ -28,6 +28,17 @@ public class Board {
 		this.content = content;
 	}
 
+
+	public Board(int number, String title, String content, String writer, String date, int cnt) {
+		this.number = number;
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.cnt = cnt;
+	}
+
+	
+
 	public int getNumber() {
 		return number;
 	}

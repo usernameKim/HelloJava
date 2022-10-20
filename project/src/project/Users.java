@@ -4,7 +4,8 @@ public class Users {
 	private String id;
 	private String pw;
 	private String name;
-
+	
+	
 	public Users() {}
 	
 	public Users(String id, String pw, String name) {

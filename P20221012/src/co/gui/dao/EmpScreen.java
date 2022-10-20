@@ -85,8 +85,15 @@ public class EmpScreen extends JFrame implements ActionListener, MouseListener{
 	// DB조회 후 table 결과를 반영.
 	public void searchData() {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		
+		// 화면에 조회된 결과 있으면... clear
+		int allCnt = model.getRowCount();
+		for(int i=0; i<allCnt; i++) {
+			model.removeRow(0); //화면에서 첫번째값을 지움 -> 그럼 두번째값이 첫번째자리에 옴 
+		}
+		
 		String[] record = new String[6];
-		list = dao.empList(new EmployeeVO(0, null, null, null, null, null)); //사원번호는 NULL안됨
+		list = dao.empList(new EmployeeVO(0, fields[1].getText(), fields[2].getText(), fields[3].getText(), fields[4].getText(), fields[5].getText())); //사원번호는 NULL안됨
 		
 		for(int i=0; i<list.size(); i++) {
 			record[0] = String.valueOf(list.get(i).getEmployeeId()); //string을 int타입으로 바꿈
@@ -98,6 +105,38 @@ public class EmpScreen extends JFrame implements ActionListener, MouseListener{
 			model.addRow(record);
 		}
 	}
+	
+	// 삭제위한 메소드.
+	public void removeData() {
+		int selectedRow = table.getSelectedRow(); // 선택된 row 반환.
+		if(selectedRow < 0) {
+			return; // 메소드를 종료할거야
+		}
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+//		System.out.println(model.getValueAt(selectedRow, 1)); // 0 -> 사원번호 1->이름
+		int empId = Integer.parseInt((String) model.getValueAt(selectedRow, 0));
+		
+		dao.deleteEmp(empId); // db에서 지움 
+	
+		model.removeRow(selectedRow);	//화면에서도 지워줘야함.
+	}
+	// 등록.
+	public void addData() {
+		// 텍스트 필드 배열을 선언(한번에 쓰려고)
+		String[] records = new String[6];
+		
+		DefaultTableModel model = (DefaultTableModel) table.getModel(); //데이터를 가져오기 위한 모델
+		for(int i =0; i<fields.length; i++) {
+			records[i] = fields[i].getText();
+		}
+		EmployeeVO emp = new EmployeeVO(0, records[1], records[2], records[3], records[4], records[5]);
+		dao.insertEmp(emp);
+		records[0] = String.valueOf(emp.getEmployeeId());
+		
+		model.addRow(records);
+	}
+	
+	
 	// 이게 this.
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -105,11 +144,12 @@ public class EmpScreen extends JFrame implements ActionListener, MouseListener{
 		Object src = e.getSource(); // 이벤트가 발생한 객체가 무엇인지 반환(타입은 오브젝트)
 		
 		if(src == addBtn) {
-			
+			addData();
 		}else if(src == delBtn) {
-			
+			removeData();
 		}else if(src == findBtn) {
 			searchData();
+			
 		}else if(src == initBtn) {
 			
 		}
@@ -120,20 +160,13 @@ public class EmpScreen extends JFrame implements ActionListener, MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// table 이벤트.
-		int selectedRow = table.getSelectedRow(); // 선택된 row 반환.
 		
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-//		System.out.println(model.getValueAt(selectedRow, 1)); // 0 -> 사원번호 1->이름
-		int empId = Integer.parseInt((String) model.getValueAt(selectedRow, 0));
-		
-		dao.deleteEmp(empId);
 	}
 	
 	// 프로그램의 시작
 	public static void main(String[] args) {
 		new EmpScreen();
 	}
-
 
 	@Override
 	public void mousePressed(MouseEvent e) {
