@@ -10,11 +10,46 @@ import java.io.OutputStream;
 public class ByteStreamExample {
 
 	public static void main(String[] args) {
+		read2();
+
+	}
+
+	public static void read2() {
 		try {
-			fileCopy();
-		} catch (IOException e) {
+			InputStream is = new FileInputStream("C:/Temp/mydata.dat");
+			byte[] buf = new byte[100]; //100개씩 읽는다는 뜻 
+			while (true) {
+				int result = is.read(buf);
+				if (result == -1)
+					break;
+				for (int i = 0; i < result; i++) {
+					System.out.println(buf[i]);
+				}
+			}
+
+			is.close();
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void write2() {
+		// C:/Temp/mydata.dat
+		// 10, 20, 30 값을 출력
+
+		try {
+			OutputStream os = new FileOutputStream("C:/Temp/mydata.dat"); // byte값이라 파일열면 알수없는 형태로 보임
+			for (int i = 0; i < 100; i++) {
+				os.write(i); // 2 4 6 8 ...128(byte범위)까지만  
+			}
+			os.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("end of prog");
+
 	}
 
 	// byte단위로 읽고 쓰기.
@@ -74,10 +109,11 @@ public class ByteStreamExample {
 	public static void read() {
 
 		try {
-			InputStream is = new FileInputStream("C:/Temp/data1.dat");
+			InputStream is = new FileInputStream("C:/Temp/data1.dat"); // 파일을 읽는 용도.
 			while (true) {
 				int bytes = is.read(); // byte 읽고 더 이상 읽을 바이트 없으면 -1 반환. 한건씩 읽겠다는뜻
-				if (bytes == -1) {
+				// 10, 20을 읽음.
+				if (bytes == -1) { // -1 -> 더이상 읽을 값이 없다는 뜻.
 					break;
 				}
 				System.out.println(bytes);
