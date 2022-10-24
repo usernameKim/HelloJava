@@ -89,7 +89,7 @@ public class EmpDAO extends DAO {
 		getConnect();
 //		String sql = "select * from empl order by employee_id";
 		String sql = "select * from empl"
-				+ " where employee_id = decode(?, 0, employee_id, ?) "
+				+ " where nvl(employee_id,0) = decode(?, 0, nvl(employee_id, 0), ?) "
 				+ " and   first_name like '%'||?||'%' " //
 				+ " and   last_name like '%'||?||'%' " // 
 				+ " and   email like '%'||?||'%' " //

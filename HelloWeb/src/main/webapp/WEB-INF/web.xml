@@ -5,7 +5,17 @@
 	id="WebApp_ID" version="4.0">
   <display-name>HelloWeb</display-name>
   
+  <servlet>
+  	<servlet-name>front</servlet-name>
+  	<servlet-class>co.edu.FrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>front</servlet-name>
+  	<url-pattern>*.do</url-pattern> <!-- do 요청이 들어오면 실행, *는 FirstServlet을 모두 실행  -->
+  </servlet-mapping>
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
+ 
 </web-app>
