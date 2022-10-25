@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h2>Member 첫페이지.</h2>
-	<a href="./memberAddForm.do">회원정보생성페이지.</a>
+	<a href="./memberAddForm.do">회원정보생성페이지.</a><br>
 	<a href="./memberModifyForm.do">회원정보수정페이지.</a>
 </body>
 </html>
