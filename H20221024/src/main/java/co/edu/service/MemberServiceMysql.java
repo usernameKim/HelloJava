@@ -17,7 +17,7 @@ public class MemberServiceMysql implements MemberService{
 	}
 
 	@Override
-	public void removeMember(MemberVO vo) {
+	public void removeMember(String id) {
 		
 	}
 
@@ -28,6 +28,11 @@ public class MemberServiceMysql implements MemberService{
 
 	@Override
 	public List<MemberVO> memberList() {
+		return null;
+	}
+
+	@Override
+	public MemberVO login(String id, String passwd) {
 		return null;
 	}
 
