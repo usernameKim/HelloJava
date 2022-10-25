@@ -17,7 +17,8 @@
 	
 	<h3>회원정보수정</h3>
 	<%
-		MemberVO result = (MemberVO) request.getAttribute("memberInfo");
+		MemberVO result = (MemberVO) request.getAttribute("memberInfo"); //조회한 값
+		String id = (String) session.getAttribute("id");
 	%>
 	<% if(result != null){ %>
 	<form action="./memberModify.do" method="post">
@@ -25,7 +26,9 @@
 		PW: <input type="text" name ="passwd" value="<%=result.getPasswd() %>"><br>
 		Name: <input type="text" name ="name" value="<%=result.getName() %>"><br>
 		Mail: <input type="email" name="email" value="<%=result.getEmail() %>"><br>
-	<input type="submit" value="수정">
+		<% if(id.equals(result.getId())) {%>
+			<input type="submit" value="수정">
+		<%} %>
 	</form>
 	<%} else { %>
 		<p>조회된 결과가 없습니다!</p>

@@ -27,7 +27,7 @@ public class MemberDAO extends DAO {
 			disconnect();
 		}
 	}
-	//조회
+	
 //	public MemberVO memberSearch(String id) {
 //		conn = getConnect();
 //		MemberVO vo = null;
@@ -50,6 +50,7 @@ public class MemberDAO extends DAO {
 //		return vo;
 //	}
 	
+	// 한건조회
 	public MemberVO memberSearch(String id) {
 		MemberVO vo = new MemberVO();
 		String sql = "select * from members where id = ?";
@@ -61,8 +62,11 @@ public class MemberDAO extends DAO {
 			rs = psmt.executeQuery();
 
 			if (rs.next()) {
-				vo = (new MemberVO(rs.getString("id"), rs.getString("passwd"), rs.getString("name"),
-						rs.getString("email")));
+				vo = (new MemberVO(rs.getString("id"), 
+						rs.getString("passwd"), 
+						rs.getString("name"),
+						rs.getString("email"), 
+						rs.getString("responsibility")));
 			}
 
 		} catch (SQLException e) {
@@ -109,21 +113,22 @@ public class MemberDAO extends DAO {
 	}
 	//목록조회
 	public List<MemberVO> memberList() {
-		List<MemberVO> memberList = new ArrayList<MemberVO>();
 		getConnect();
+		List<MemberVO> memberList = new ArrayList<MemberVO>();
 		String sql = "select * from members";
 		try {
 			psmt = conn.prepareStatement(sql);
 
 			rs = psmt.executeQuery();
 			while (rs.next()) {
-				String id = rs.getString("id");
-				String pwd = rs.getString("passwd");
-				String name = rs.getString("name");
-				String email = rs.getString("email");
-
-				MemberVO vo = new MemberVO(id, pwd, name, email);
-				memberList.add(vo);
+				memberList.add(new MemberVO(rs.getString("id")
+				,rs.getString("passwd")
+				,rs.getString("name")
+				,rs.getString("email")
+				,rs.getString("responsibility")));
+				
+//				MemberVO vo = new MemberVO(id, pwd, name, email);
+//			memberList.add(vo);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -149,6 +154,7 @@ public class MemberDAO extends DAO {
 				vo.setName(rs.getString("name"));
 				vo.setEmail(rs.getString("email"));
 				vo.setPasswd(rs.getString("passwd"));
+				vo.setResponsibility(rs.getString("responsibility"));
 				return vo;
 			}
 		} catch (SQLException e) {

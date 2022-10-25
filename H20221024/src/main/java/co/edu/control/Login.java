@@ -30,6 +30,7 @@ public class Login implements Command {
 			
 			HttpSession session = req.getSession();
 			session.setAttribute("id", result.getId());
+			session.setAttribute("auth", result.getResponsibility()); // admin/ user 권한.
 			
 			HttpUtil.forward(req, resp, "memberView/main.jsp");
 		} else {

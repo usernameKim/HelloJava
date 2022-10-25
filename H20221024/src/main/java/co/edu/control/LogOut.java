@@ -14,7 +14,6 @@ public class LogOut implements Command {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		HttpSession session = req.getSession();
 		session.invalidate(); // 웹브라우저에 있는 session 삭제.
 		

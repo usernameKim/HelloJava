@@ -27,7 +27,7 @@ public class FrontController extends HttpServlet{
 		// 삭제기능.
 		control.put("/memberRemoveForm.do", new MemberRemoveForm());
 		control.put("/memberRemove.do", new MemberRemove());
-		// 한건조회.
+		// 단건조회.
 		control.put("/memberSearchForm.do", new MemberSearchFrom());
 		control.put("/memberSearch.do", new MemberSearch());
 		// 목록.
@@ -45,6 +45,7 @@ public class FrontController extends HttpServlet{
 		String contextPath = req.getContextPath();
 		String path = uri.substring(contextPath.length());
 		
+		System.out.println(path);
 		Command command = control.get(path);
 		command.exec(req, resp);
 	}
