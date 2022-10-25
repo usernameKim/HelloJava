@@ -28,8 +28,15 @@ public class FrontController extends HttpServlet{
 		control.put("/memberRemoveForm.do", new MemberRemoveForm());
 		control.put("/memberRemove.do", new MemberRemove());
 		// 한건조회.
+		control.put("/memberSearchForm.do", new MemberSearchFrom());
+		control.put("/memberSearch.do", new MemberSearch());
 		// 목록.
-		control.put(getServletInfo(), null)
+		control.put("/memberList.do", new MemberList());
+		// 로그인.
+		control.put("/loginForm.do", new loginForm());
+		control.put("/login.do", new Login());
+		// 로그아웃.
+		control.put("/loginOut.do", new LogOut());
 	}
 	
 	@Override

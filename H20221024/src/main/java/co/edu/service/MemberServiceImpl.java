@@ -23,8 +23,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void removeMember(MemberVO vo) {
-		dao.memberDelete(null);
+	public void removeMember(String id) {
+		dao.memberDelete(id);
 	}
 
 	@Override
@@ -35,6 +35,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<MemberVO> memberList() {
 		return dao.memberList();
+	}
+
+	@Override
+	public MemberVO login(String id, String passwd) {
+		return dao.login(id, passwd);
 	}
 
 }

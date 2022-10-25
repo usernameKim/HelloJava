@@ -20,10 +20,10 @@ public class MemberAddControl implements Command {
 		String id = req.getParameter("id");
 		String pw = req.getParameter("passwd");
 		String nm = req.getParameter("name");
-		String ml = req.getParameter("email");
+		String ml = req.getParameter("mail");
 		
 		MemberVO vo = new MemberVO(id, pw, nm, ml);
-		
+		System.out.println(vo);
 		// DB 입력처리.
 		MemberService service = new MemberServiceImpl(); //호출하는 객체만 바꿔주면 crud 바꿀 필요x
 		service.addMember(vo);

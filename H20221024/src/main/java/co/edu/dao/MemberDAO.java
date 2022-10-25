@@ -27,21 +27,44 @@ public class MemberDAO extends DAO {
 			disconnect();
 		}
 	}
-
+	//조회
+//	public MemberVO memberSearch(String id) {
+//		conn = getConnect();
+//		MemberVO vo = null;
+//		List<MemberVO> list = new ArrayList<MemberVO>();
+//		try {
+//			psmt = conn.prepareStatement("select * from members where id =?");
+//			rs = psmt.executeQuery();
+//			psmt.setString(1, id);
+//			if (rs.next()) {// 값이없으면 null이 리턴
+//				vo = new MemberVO(rs.getString("id")//
+//						, rs.getString("passwd")//
+//						, rs.getString("name")//
+//						, rs.getString("email"));
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			disconnect();
+//		}
+//		return vo;
+//	}
+	
 	public MemberVO memberSearch(String id) {
+		MemberVO vo = new MemberVO();
+		String sql = "select * from members where id = ?";
 		conn = getConnect();
-		MemberVO vo = null;
-		List<MemberVO> list = new ArrayList<MemberVO>();
 		try {
-			psmt = conn.prepareStatement("select * from members where id =?");
-			rs = psmt.executeQuery();
+
+			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, id);
-			if (rs.next()) {// 값이없으면 null이 리턴
-				vo = new MemberVO(rs.getString("id")//
-						, rs.getString("passwd")//
-						, rs.getString("name")//
-						, rs.getString("email"));
+			rs = psmt.executeQuery();
+
+			if (rs.next()) {
+				vo = (new MemberVO(rs.getString("id"), rs.getString("passwd"), rs.getString("name"),
+						rs.getString("email")));
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -50,6 +73,7 @@ public class MemberDAO extends DAO {
 		return vo;
 	}
 
+	//수정
 	public void memberUpdate(MemberVO vo) {
 		getConnect();
 		String sql = "update members set id=?, passwd=?, name=?, email=? where id=?";
@@ -68,7 +92,7 @@ public class MemberDAO extends DAO {
 			disconnect();
 		}
 	}
-
+	//삭제
 	public void memberDelete(String id) {
 		getConnect();
 		String sql = "delete from members where id = ?";
@@ -83,7 +107,7 @@ public class MemberDAO extends DAO {
 			disconnect();
 		}
 	}
-
+	//목록조회
 	public List<MemberVO> memberList() {
 		List<MemberVO> memberList = new ArrayList<MemberVO>();
 		getConnect();
@@ -108,5 +132,30 @@ public class MemberDAO extends DAO {
 		}
 
 		return memberList;
+	}
+	// String id, String passwd => MemberVO 
+	public MemberVO login(String id, String passwd) {
+		getConnect();
+		String sql = "select * from members where id=? and passwd=?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			psmt.setString(2, passwd);
+			
+			rs = psmt.executeQuery();
+			if(rs.next()) { //참이면 실행
+				MemberVO vo = new MemberVO();
+				vo.setId(rs.getString("id"));
+				vo.setName(rs.getString("name"));
+				vo.setEmail(rs.getString("email"));
+				vo.setPasswd(rs.getString("passwd"));
+				return vo;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return null;
 	}
 }
