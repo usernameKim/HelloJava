@@ -43,24 +43,28 @@ public class BoardDAO extends DAO{
 	}
 	public BoardVO searchBoard(int boardNo) {
 		conn = getConnect();
-		BoardVO vo = new BoardVO();
+//		BoardVO vo = new BoardVO();
 		String sql = "select * from tbl_board where board_no=?";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, boardNo);
 			rs =psmt.executeQuery();
 			if(rs.next()) {
-				vo = (new BoardVO(rs.getInt("board_no"),
-						rs.getString("title"),
-						rs.getString("content"),
-						rs.getString("writer")));
+				BoardVO board = new BoardVO();
+				board.setBoardNO(rs.getInt("board_no"));
+				board.setTitle(rs.getString("title"));
+				board.setContent(rs.getString("content"));
+				board.setWriter(rs.getString("writer"));
+				board.setWriteDate(rs.getString("write_date"));
+				board.setClickCnt(rs.getInt("clink_cnt"));
+				board.setImage(rs.getString("image"));
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
 		} finally {
 			disconnect();
 		}
-		return vo;
+		return ;
 	}
 	public List<BoardVO> boardList(BoardVO vo){
 		List<BoardVO> list = new ArrayList<>();
