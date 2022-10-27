@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.board.BoardVO;
+import co.edu.board.MemberVO;
 import co.edu.common.DAO;
 
 public class BoardDAO extends DAO {
-	// 입력,조회,수정,삭제...
+	// 회원가입, 입력,조회,수정,삭제...
+
 	public BoardVO insertBoard(BoardVO vo) {
 		// 입력처리중에 에러가 발생하면.. null;
 		getConnect();
@@ -197,6 +199,31 @@ public class BoardDAO extends DAO {
 			disconnect();
 		}
 		return list;
+	}
+	// 회원목록출력하기 for member/meberList.jsp에서 jstl 이용.
+	public List<MemberVO> memberList() {
+		List<MemberVO> list = new ArrayList<>();
+		getConnect();
+		String sql = "select * from members";
 		
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				MemberVO vo = new MemberVO();
+				vo.setId(rs.getString("id"));
+				vo.setPasswd(rs.getString("passwd"));
+				vo.setName(rs.getString("name"));
+				vo.setEmail(rs.getString("email"));
+				
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return list;
 	}
 }
+

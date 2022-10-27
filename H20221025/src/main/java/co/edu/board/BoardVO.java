@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardVO {
+	
 	private int boardNo;
 	private String title;
 	private String content;
@@ -15,4 +16,6 @@ public class BoardVO {
 	private String writeDate; // 2020-11-23
 	private int clickCnt;
 	private String image;
+	
+	
 }
