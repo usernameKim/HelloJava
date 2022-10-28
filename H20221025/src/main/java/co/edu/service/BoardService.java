@@ -22,4 +22,6 @@ public interface BoardService {
 		public List<MemberVO> memberList();
 		
 		public MemberVO login(String id, String passwd);
+		
+		
 }
