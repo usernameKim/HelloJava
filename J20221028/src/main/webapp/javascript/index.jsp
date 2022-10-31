@@ -10,7 +10,7 @@
 <body>
     <form action="index.html" onsubmit="submitFunc()"> 
         id: <input type="text" id="uid" value="user1"><br>
-        pw: <input tyep="password" id="upw" value="1234"><br>
+        pw: <input type="password" id="upw" value="1234"><br>
         <input type="submit" value="로그인">
     </form>
 
@@ -21,7 +21,7 @@
         // document.write('<p>Hello, World</p>')
         // DOM 요소생성.
         let pTag = document.createElement('p'); // <p></p>
-        let txt = document.createTextNode('Hello, World');
+        let txt = document.createTextNode('Hello, World'); //문자열 만듦
         pTag.appendChild(txt); // <p>Hello, World</p>
         console.log(pTag);
 
