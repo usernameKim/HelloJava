@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax.html</title>
+</head>
+<body>
+	<h3>Ajax호출.</h3>
+	<button>요청</button>
+	<script>
+		document.querySelector('button').addEventListener('click', loadData); //loadData ->콜백
+
+		function loadData() {
+			let ajax = new XMLHttpRequest();
+			ajax.open('get', 'data/MOCK_DATA.json'); //요청 페이지 지정.
+			ajax.send(); // 실제 요청을 보냄.
+			//onload가 발생하면 함수 이벤트 실행
+			ajax.onload = loadCallback; // event발생 -> this -> ajax객체를 가르킴
+		}
+		// ajax 객체에 로드이벤트 발생할 때 실행할 콜백함수.
+		function loadCallback(){
+			//console.log(ajax.responseText); 
+			
+			// JSON.parse ->자바스크립트의 object 형태로 바꿈
+			let data = JSON.parse(this.responseText); // 형태변환/ ajax를 this로 바꿈
+			let table = document.createElement('table');
+			let tbody = document.createElement('tobdy');
+			data.forEach(row =>{ // data -> 배열
+				tbody.append(makeTr(row));
+			});
+			table.append(tbody);
+			document.getElementsByTagName('body')[0].append(table) //table을 body태그에 붙임
+			
+				}
+		// data 한건을 tr 생성해주는 함수.
+		function makeTr(obj){
+			let tr = document.createElement('tr');
+			for (let field in obj){
+				let td = document.createElement('td');
+				let txt = document.createTextNode(obj[field]);
+				td.append(txt);
+				tr.append(td);
+			}
+			return tr;
+		}
+	</script>
+</body>
+</html>

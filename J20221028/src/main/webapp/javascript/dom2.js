@@ -12,7 +12,7 @@ function domLoadedFunc() {
     let obj = {}
     let result = JSON.parse(data); // json형태의 data를 =>js의 object로, 배열임
     console.log(result);
-
+	
 
     // 확장for.
     // table

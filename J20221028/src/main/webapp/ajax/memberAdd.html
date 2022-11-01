@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>memberAdd.html</title>
+</head>
+<body>
+	<h3>회원등록페이지.</h3>
+	<form name="submitFrm" action="" method="post">
+		id: <input type="text" id="id"><br> pass: <input
+			type="text" id="passwd"><br> email: <input type="email"
+			id="email"><br> name: <input type="text" id="name"><br>
+		<input type="submit" value="등록">
+	</form>
+	<form name="secondFrm"></form>
+
+	<script>
+		document.forms.submitFrm.action = "../index.html";
+		//submitFrm.method = 'get';
+		// on 속성은 이벤트와 관련된것임
+		document.forms.submitFrm.onsubmit = function(e) {
+			e.preventDefault(); // 기본기능 차단, 이 페이지에 머물겠다는 뜻
+			console.log('hhhh')
+			let id = document.getElementById('id').value;// 사용자가 입력한 값 읽겠음
+			let pw = document.getElementById('passwd').value;
+			let em = document.getElementById('email').value;
+			let nm = document.getElementById('name').value;
+			// 값이 없으면 공백 -> 불린타입으로 false
+			let check = id && pw && em && nm;
+			if (!check) {
+				alert('필수항목입니다.')
+				//종료, false를 입력해야 submit으로 안넘어감( submitFrm.submit();)
+				return false;
+			}
+			let data = 'id=' + id + '&passwd=' + pw + '&email=' + em + '&name='
+					+ nm;
+			let ajax = new XMLHttpRequest();
+			ajax.open('post', '../MemberListServlet');
+			// client -> server (key, value형식으로 값을 넘기므로)
+			ajax.setRequestHeader('Content-type',
+					'application/x-www-form-urlencoded');
+			ajax.send(data);
+			ajax.onload = function() {
+				console.log(ajax.responseText);
+				let data = JSON.parse(ajax.responseText);
+				let pTag = document.createElement('p');
+				pTag.textContent = '아이디: ' + data.id + ', 이름: ' + data.name;
+
+				secondFrm.after(pTag); // secondFrm 다음인 동생 자리에 위치.
+			}
+		}
+	</script>
+</body>
+</html>
