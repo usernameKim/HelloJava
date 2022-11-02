@@ -13,5 +13,8 @@ public class MemberVO {
 	private String name;
 	private String email;
 	private String responsibility;
+	private String title;
+	private String start_date;
+	private String end_date;
 	
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <script type="text/javascript">
+    let aryData=[]; // ['부서명', '부서인원'], [Account, 3]
+
+    fetch('./EmpByDeptServlet')
+      .then( result => result.json())
+      .then(loadCallBack)
+      .catch(err => console.error(err));
+
+      function loadCallBack(result ={}){
+        console.log(result);
+        aryData.push(['부서명', '부서인원']);
+
+        for(let dept in result){
+          aryData.push([dept, result[dept]]);
+        }
+      google.charts.load('current', {
+        'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable(aryData);
+      var options = {
+        title: '부서별 인원 현황'
+      };
+      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+      chart.draw(data, options);
+      }
+
+    }
+  </script>
+</head>
+
+<body>
+  <div id="piechart" style="width: 900px; height: 500px;"></div>
+</body>
+
+</html>
+
+Making a 3D Pie Chart
+If you set the is3D option to true, your pie chart will be drawn as though it has three dimensions:
+
+
+is3D is false by default, so here we explicitly set it to true:
+

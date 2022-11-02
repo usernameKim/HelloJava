@@ -118,7 +118,6 @@ public class MemberDAO extends DAO {
 		String sql = "select * from members";
 		try {
 			psmt = conn.prepareStatement(sql);
-
 			rs = psmt.executeQuery();
 			while (rs.next()) {
 				memberList.add(new MemberVO(rs.getString("id")

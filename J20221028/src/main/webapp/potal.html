@@ -46,10 +46,11 @@
 		}
 		return tr;
 	}
-	function loadDataCallback(){
-		 console.log(this.responseText);
-		 let obj = JSON.parse(this.responseText);
-		 document.getElementById('list').append(makeTr(center));
+	// 찾기
+	function find(){
+		 
+	document.querySelectorAll('#list').append(makeTr(center[field]));
+	document.getElementById('sido').value
 	}
 	</script>
 </body>
