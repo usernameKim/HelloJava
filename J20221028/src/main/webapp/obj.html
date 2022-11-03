@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+    div{
+        display: inline-block;
+        width: 550px;
+        background-color: green;
+    }
+    div#timer{
+        background-color: aqua;
+    }
+    p{
+        display: inline-block;
+        width: 100px;
+        background-color: yellow;
+        padding: 5px;
+        margin: 4px;
+    }
+</style>
+</head>
+<body>
+    단어입력: <input type="text" id="word"><button id="btn">입력</button>
+    <div id ="wordlist">
+    </div>
+    <div id="timer"></div>
+
+    <script>
+        let words =  
+        `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Pariatur impedit sint perferendis deserunt molestias sapiente, ad doloremque minus enim dolor quia, eos iste ipsam quasi tenetur, adipisci quas laudantium! Facilis.`
+        let wordAry =  words.split(' ') // 공백기준으로 배열을 만듦
+        wordAry.forEach(word => {
+            let pTag = document.createElement('p');
+            pTag.textContent = word;//createtextnode랑 같음
+            document.getElementById('wordlist').append(pTag); // div밑에 pTag넣음
+        });    
+        
+        document.querySelector('#btn').addEventListener('click', removeFnc);
+
+        // 단어삭제
+        function removeFnc(result) {        
+            let p = document.querySelectorAll('#wordlist>p')
+            let word = document.getElementById('word').value;
+            // for(let obj of p){
+            //     if(word == obj.textContent){
+            //         console.log(obj);
+            //         obj.remove();
+            //     }
+            // }
+            p.forEach(row =>{
+                if(word == row.textContent){
+                    console.log(word);
+                    row.remove();
+                }
+            })      
+        }
+
+
+        //타이머
+         Date.prototype.timeFormater = function(){
+             return ("0" +this.getHours()).slice(-2) +":"+ // this-> data객체
+                     ("0" +this.getMinutes()).slice(-2) + ":" +//
+                     ("0" + this.getSeconds()).slice(-2);
+         }
+        // String.prototype.ltrim = function(){
+        // }
+         let time = 50;
+
+//        setTimeout(function() {}, 5000);
+        
+         let timer1 = setInterval(() => {
+             // 100초 =>
+             console.log(time);
+             let timer = new Date();
+             document.getElementById('timer').textContent = time;
+            time-- // 타이머기능
+             let items = document.querySelectorAll('#wordlist>p');
+             if(!items.length && time){
+                alert('success')
+                clearInterval(timer1);
+             }else if(!time){
+                alert('fail');
+                clearInterval(timer1); // setInterVal을 종료하는 clearInterVal(변수)
+             }                    
+         }, 1000);
+         document.getElementById('word').focus();
+       
+    </script>
+</body>
+</html>

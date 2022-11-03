@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<meta charset="UTF-8">
+<title>cal.html</title>
+<head>
+	<script>
+		let obj ={
+			id: 'hong',
+			age: 20
+		}
+		obj = {} //new Object();
+		let ary = [] //new Array(); 
+		let today = new Date();
+
+		let toYear = today.getFullYear();
+		let toMonth = today.getMonth(); 
+		// getFullYear, getMonth
+
+//		console.log('1');
+
+		// 달력만들기
+		document.addEventListener('DOMContentLoaded', function(){
+
+			today = new Date(2022, 10, 1); //화요일 ->2
+			let thisDay = today.getDay(); //Date가 가지고 있는 
+
+			let lastDate = new Date(toYear, toMonth + 1, 0).getDate(); // 이 달의 마지막 날짜 구하기
+			let lastDay = new Date(toYear, toMonth, lastDate).getDay(); // 이 달의 마지막 요일 구하기
+			console.log((thisDay));
+//			console.log('2');
+			let table = document.createElement('table');
+			table.setAttribute('border', '1');
+
+			let tbody = document.createElement('tobody');
+			let tr = document.createElement('tr');
+			tbody.append(tr);
+			
+			//요일
+			let days = ['일', '월', '화', '수', '목', '금', '토'];
+				days.forEach(row => {
+					let td = document.createElement('td');
+					td.append(row);
+					tr.append(td);
+				})
+				tr = document.createElement('tr');
+				tbody.append(tr);
+			
+			if(toYear == today.getFullYear() && today.getMonth()== today.getMonth() && i== today.getDate()){
+				cell.style.backgroundColor = "#e2f3da";
+			}
+			//첫날요일지정.
+			for(let i=0; i< thisDay; i++){
+				let td = document.createElement('td');
+				tr.append(td); //화요일 -2: 2칸 만듦
+			}
+			//요일, 줄바꿈
+			for(let i=1; i<=lastDate; i++){
+				let td = document.createElement('td');
+				td.textContent =i;
+				tr.append(td);
+				if((i+thisDay) % 7 == 0){
+					tr = document.createElement('tr');
+					tbody.append(tr); // 줄바꿈하려면 새로 tr을 만들어야함.
+				}
+			}
+			
+			table.append(tbody);
+			document.getElementById('show').append(table);
+		})
+//		console.log('3');
+	</script>
+	
+</head>
+<body>
+	<div id ="show"></div>
+	<script>
+//		console.log('4');
+	</script>
+</body>
+</html>
