@@ -44,7 +44,6 @@ function makeItemDiv(item ={}){
     //카트에 담기
     let badge = good.querySelector('span.badge').textContent;
     document.querySelector('a.btn').addEventListener('click', addFunc()); 
-    
     function addFunc(){
         
     }

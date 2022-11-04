@@ -38,8 +38,6 @@ function domLoadedFunc() {
             .forEach(function (check) {  // cks는 체크박스의 하위 체크박스들
                 check.checked = checkbox.checked; //상위의 체크박스가 체크되면 하위도 체크
             }); 
-       
-
     })
 
     td.appendChild(checkbox);
