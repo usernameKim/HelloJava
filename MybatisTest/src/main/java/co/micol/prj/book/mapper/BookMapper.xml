@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.micol.prj.book.mapper.BookMapper">
+<!-- 파일이름을 인터페이스 이름과 같게 해야함. -->
+<!-- 파라메타타입은 BookVO mapper 메소드 이름을 id에-->
+<!-- ; 안쓰고 대문자로 -->
+<!-- jsp말고 xml은 수정하면 다시 run as시켜 -->
+	<select id="bookSelectList" resultType="co.micol.prj.book.vo.BookVO">
+		SELECT * FROM BOOK_INFO ORDER BY BOOK_CODE DESC <!-- ctrl shift x : 대문자 -->
+	</select>
+	<select id="bookSelect" resultType="co.micol.prj.book.vo.BookVO">
+		SELECT * FROM BOOK_INFO 
+		WHERE BOOK_CODE = #{bookCode} <!--vo객체명 그대로 넣기  -->
+	</select>
+	
+	<insert id="bookInsert" parameterType="co.micol.prj.book.vo.BookVO">
+		INSERT INTO BOOK_INFO <!-- table명은 db와그대로 -->
+		VALUES(book_seq.nextval,#{bookTitle}, #{bookAuthor}, #{bookPress}, #{bookPrice})
+	</insert>
+	
+	<delete id="bookDelete" parameterType="co.micol.prj.book.vo.BookVO">
+		DELETE FROM BOOK_INFO WHERE BOOK_CODE = #{BookCode}
+	</delete>
+	
+	<update id="bookUpdate" parameterType="co.micol.prj.book.vo.BookVO">
+		UPDATE BOOK_INFO 
+		SET BOOK_TITLE = #{bookTitle}, 
+			BOOK_AUTHOR = #{bookAuthor},
+			BOOK_PRESS = #{bookPress},
+			BOOK_PRICE = #{bookPrice}
+		WHERE BOOK_CODE = #{bookCode} <!-- primary key로 찾기 -->
+ 	</update>
+</mapper>
