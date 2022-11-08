@@ -20,7 +20,7 @@ public class BookList implements Command {
 		List<BookVO> books = new ArrayList<>();
 		books = dao.bookSelectList(); //전체목록
 		request.setAttribute("books", books); //결과를 담음(jsp페이지에서 사용할 변수 "books"
-		// 전달하려고 set
+		// 전달하려고 set, front에 못던지니까
 		return "book/bookList"; //jsp 쓰지 x resolve가 해주므로
 	}
 

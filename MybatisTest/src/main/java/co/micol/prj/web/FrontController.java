@@ -12,8 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.micol.prj.book.command.BookList;
+import co.micol.prj.book.command.MemberJoin;
 import co.micol.prj.common.Command;
 import co.micol.prj.main.MainCommand;
+import co.micol.prj.member.command.AjaxIdCheck;
+import co.micol.prj.member.command.Logout;
+import co.micol.prj.member.command.MemberJoinForm;
+import co.micol.prj.member.command.MemberLogin;
+import co.micol.prj.member.command.MemberLoginForm;
 
 /**
  * 모든요청을 받아들이는 컨트롤러
@@ -30,6 +36,12 @@ public class FrontController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		map.put("/main.do", new MainCommand()); // 처음 보여줄 페이지 명령
 		map.put("/bookList.do", new BookList()); // 책목록보기
+		map.put("/memberLoginForm.do", new MemberLoginForm()); //로그인 폼 호출
+		map.put("/memberLogin.do", new MemberLogin()); //멤버로그인처리
+		map.put("/logout.do", new Logout()); //로그아웃
+		map.put("/memberJoinForm.do", new MemberJoinForm());
+		map.put("/ajaxIdCheck.do", new AjaxIdCheck());//ajax를 이용한
+		map.put("/memberJoin.do", new MemberJoin());
 	}
 	
 	//요청을 분석하고 실행, 결과를 돌려주는 곳
@@ -52,9 +64,15 @@ public class FrontController extends HttpServlet {
 		// viewResolve 파트(spring은 자동으로 만들어줌)
 		if(!viewPage.endsWith(".do") && viewPage != null) {
 			//ajax 처리
+			if(viewPage.startsWith("ajax:")) {
+				response.setContentType("text/html; charset=UTF-8");
+				response.getWriter().append(viewPage.substring(5)); //ajax: 이거 자름
+				return;
+			}
 			//타일즈 돌아가는곳
-			
-			viewPage = "/WEB-INF/views/" + viewPage + ".jsp";
+			if(!viewPage.endsWith(".tiles")) {
+				viewPage = "/WEB-INF/views/" + viewPage + ".jsp"; //타일즈를 안태움
+			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response);
 			//  클라이언트로부터 최초에 들어온 요청을 JSP/Servlet 내에서 원하는 자원으로 요청을 넘기는(보내는) 역할

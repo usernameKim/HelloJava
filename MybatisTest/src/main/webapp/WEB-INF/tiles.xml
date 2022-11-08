@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+       <!-- tiles 실행 -->
+       <!--레이아웃 만들기... 변수는 내가 지정 -->
+       <!-- 우리가 만든 jsp페이지를 바디에, value 비워두기.. -->
+<tiles-definitions>
+	<definition name="myLayout" template="/WEB-INF/views/layout/layout.jsp">
+		<put-attribute name="title" value="My WebSite" />
+		<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp"/>
+		<put-attribute name="body" value=""/>
+		<put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp"/>
+	</definition>
+	
+	<!-- mylayout이라는 definition상속 -->
+	<!-- member/memberLogin: */*  -->
+	<definition name="WILDCARD:*/*" extends="myLayout">
+		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	</definition>
+</tiles-definitions>
