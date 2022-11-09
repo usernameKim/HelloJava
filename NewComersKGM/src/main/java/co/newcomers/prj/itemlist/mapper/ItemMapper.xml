@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.newcomers.prj.item.mapper.NewComersMapper">
+
+	<select id="itemSelectList">
+		SELECT * FROM ITEM ORDER BY ITEM_CODE DESC 
+	</select>
+	<select id="itemSelect" resultType="co.newcomers.prj.item.vo.ItemVO">
+		SELECT * FROM ITEM
+		WHERE ITEM = #{itemCode} 
+	</select>
+	
+	<select id="itemSearch" resultType="co.newcomers.prj.itemlist.vo.ItemVO">
+		SELECT* FROM ITEM I, DETAIL_ITEM D
+		WHERE I.ITEM_CODE = D.ITEM_CODE
+		AND I.ITEM_NAME LIKE '%'#{itemName}'%'
+		AND D.ITEM_TITLE LIKE '%'#{itemTitle}'%'
+	</select>
+	
+	<insert id="itemInsert" parameterType="co.newcomers.prj.item.vo.ItemVO">
+		INSERT INTO ITEM
+		VALUES(item_seq.nextval, #{itemName}, #{itemPrice})
+	</insert>
+	
+	<delete id="itemDelete" parameterType="co.newcomers.prj.item.vo.ItemVO">
+		DELETE FROM ITEM WHERE ITEM_CODE = #{itemCode}
+	</delete>
+	
+	<update id="itemUpdate" parameterType="co.newcomers.prj.item.vo.ItemVO">
+		UPDATE ITEM
+		SET ITEM_NAME = #{itemName}, 
+			ITEM_PRICE = #{itemPrice}
+		WHERE ITEM_CODE = #{itemCode} 
+ 	</update>
+</mapper>
