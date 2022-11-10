@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import co.newcomers.prj.common.Command;
+import co.newcomers.prj.itemlist.command.Category;
 import co.newcomers.prj.itemlist.command.ItemList;
 import co.newcomers.prj.main.MainCommand;
 
@@ -27,6 +28,8 @@ public class FrontController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		map.put("/main.do", new MainCommand());
 		map.put("/ItemList.do", new ItemList()); //상품목록보기
+		map.put("/category.do", new Category()); //카테고리 페이지이동
+		
 	}
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

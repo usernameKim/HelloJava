@@ -16,6 +16,7 @@ public class ItemList implements Command {
 	@Override
 	public String exec(HttpServletRequest request, HttpServletResponse response) {
 		// 상품목록 가져오기
+		
 		ItemService dao = new ItemServiceImpl();
 		List<ItemVO> items = new ArrayList<>();
 		items = dao.itemSelectList(); 

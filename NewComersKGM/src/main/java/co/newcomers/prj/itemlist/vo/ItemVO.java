@@ -1,13 +1,13 @@
 package co.newcomers.prj.itemlist.vo;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
+
 public class ItemVO {
+
 	private String itemCode;
-	private String itemName;
+	private String itemTitle;
 	private int itemPrice;
 	private String itemImage;
 	
