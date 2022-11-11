@@ -17,7 +17,12 @@ public class ItemServiceImpl implements ItemService{
 		// TODO Auto-generated method stub
 		return map.itemSelectList();
 	}
-
+	
+@Override
+	public List<ItemVO> categorySelectList(String itemCategory) {
+		// TODO Auto-generated method stub
+		return map.categorySelectList(itemCategory);
+	}
 	@Override
 	public ItemVO itemSelect(ItemVO vo) {
 		// TODO Auto-generated method stub
@@ -47,6 +52,8 @@ public class ItemServiceImpl implements ItemService{
 		// TODO Auto-generated method stub
 		return map.itemUpdate(vo);
 	}
+
+	
 
 
 }

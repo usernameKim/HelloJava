@@ -6,6 +6,7 @@ import co.newcomers.prj.itemlist.vo.ItemVO;
 
 public interface ItemService {
 	List<ItemVO> itemSelectList();  
+	List<ItemVO> categorySelectList(String itemCategory);  
 	ItemVO itemSelect(ItemVO vo);	
 	ItemVO itemSearch(ItemVO vo);
 	int itemInsert(ItemVO vo);		

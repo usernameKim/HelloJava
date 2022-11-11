@@ -9,6 +9,14 @@
 		WHERE ITEM.ITEM_CODE = DETAIL_ITEM.ITEM_CODE 
 		ORDER BY 1 DESC
 	</select>
+	
+	<select id="categorySelectList" resultType="co.newcomers.prj.itemlist.vo.ItemVO">
+		SELECT ITEM.ITEM_CODE, DETAIL_ITEM.ITEM_TITLE, ITEM.ITEM_PRICE, DETAIL_ITEM.ITEM_IMAGE1 as ITEM_IMAGE
+		FROM ITEM , DETAIL_ITEM 
+		WHERE ITEM.ITEM_CODE = DETAIL_ITEM.ITEM_CODE AND ITEM.ITEM_CATEGORY = #{itemCategory}
+		ORDER BY 1 DESC
+	</select>
+	
 	<select id="itemSelect" resultType="co.newcomers.prj.itemlist.vo.ItemVO">
 		SELECT * FROM ITEM
 		WHERE ITEM = #{itemCode} 

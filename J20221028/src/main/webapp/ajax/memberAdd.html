@@ -32,8 +32,7 @@
 				//종료, false를 입력해야 submit으로 안넘어감( submitFrm.submit();)
 				return false;
 			}
-			let data = 'id=' + id + '&passwd=' + pw + '&email=' + em + '&name='
-					+ nm;
+			let data = 'id=' + id + '&passwd=' + pw + '&email=' + em + '&name='+ nm;
 			let ajax = new XMLHttpRequest();
 			ajax.open('post', '../MemberListServlet');
 			// client -> server (key, value형식으로 값을 넘기므로)

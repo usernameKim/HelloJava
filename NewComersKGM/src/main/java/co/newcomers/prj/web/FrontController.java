@@ -13,7 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import co.newcomers.prj.common.Command;
 import co.newcomers.prj.itemlist.command.Category;
+import co.newcomers.prj.itemlist.command.CategoryFilter;
+import co.newcomers.prj.itemlist.command.FishCategory;
 import co.newcomers.prj.itemlist.command.ItemList;
+import co.newcomers.prj.itemlist.command.AnimalCategory;
+import co.newcomers.prj.itemlist.command.BakeryCategory;
+import co.newcomers.prj.itemlist.command.JellyCategory;
+import co.newcomers.prj.itemlist.command.SideDishCategory;
 import co.newcomers.prj.main.MainCommand;
 
 @WebServlet("*.do")
@@ -26,10 +32,16 @@ public class FrontController extends HttpServlet {
     }
 
 	public void init(ServletConfig config) throws ServletException {
+		//김경미
 		map.put("/main.do", new MainCommand());
 		map.put("/ItemList.do", new ItemList()); //상품목록보기
 		map.put("/category.do", new Category()); //카테고리 페이지이동
-		
+		map.put("/fishCategory.do", new FishCategory()); //생선 카테고리
+		map.put("/bakeryCategory.do", new BakeryCategory()); //베이커리 카테고리
+		map.put("/sideDishCategory.do", new SideDishCategory()); //반찬 카테고리
+		map.put("/jellyCategory.do", new JellyCategory());//젤리 카테고리
+		map.put("/animalCategory.do", new AnimalCategory());//반려동물용품 카테고리
+		map.put("/categoryFilter.do", new CategoryFilter()); //카테고리값 가져오기
 	}
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

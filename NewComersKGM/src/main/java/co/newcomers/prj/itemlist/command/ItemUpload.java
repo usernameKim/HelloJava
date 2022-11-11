@@ -20,7 +20,7 @@ public class ItemUpload implements Control {
 
 	@Override
 	public void exec(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-		String saveDir = request.getServletContext().getRealPath("upload");
+		String saveDir = request.getSession().getServletContext().getRealPath("/upload/");
 		System.out.println(saveDir);
 		String encod = "UTF-8";
 		int maxSize = 5 * 1024 * 1024; // 1킬로바이트(1024) -> 메가 -> 5메가
@@ -31,7 +31,7 @@ public class ItemUpload implements Control {
 				maxSize, // 파일크기.
 				encod, // 인코딩방식.
 				new DefaultFileRenamePolicy() // 리네임 정책. 
-				);
+				); 
 		
 		String code =mr.getParameter("itemCode");
 		String title =mr.getParameter("itemTitle");
